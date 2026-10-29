@@ -1,0 +1,21 @@
+{
+  "name": "בית האפיות - The Bakery House",
+  "short_name": "בית האפיות",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#121417",
+  "theme_color": "#d97706",
+  "description": "מערכת מקצועית לאופים: מחשבון אופים חכם עם קיזוז מחמצת ופסטה מדרה, ארסנל מתכוני בוטיק ופרימיום, בפיקוח קשת",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

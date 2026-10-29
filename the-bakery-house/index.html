@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>בית האפיות | The Bakery House</title>
+  
+  <!-- Meta tags & SEO / PWA -->
+  <meta name="description" content="בית האפיות - מערכת מקצועית לאופים: מחשבון אופים חכם עם קיזוז מחמצת ופסטה מדרה, ארסנל מתכוני בוטיק ושלבי הכנה מפורטים">
+  <meta name="theme-color" content="#d97706">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <!-- Google Fonts: Heebo & Assistant -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-dark">
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-inner container">
+      <div class="brand-section" onclick="switchTab('tab-calculator')" style="cursor: pointer;" title="חזרה למחשבון הראשי">
+        <div class="brand-logo-wrap">
+          <img src="app-logo.png" alt="בית האפיות - The Bakery House" class="brand-logo-img">
+        </div>
+        <div class="brand-titles">
+          <div class="brand-title-line">
+            <h1 class="brand-title">בית האפיות</h1>
+            <span class="brand-en">THE BAKERY HOUSE</span>
+          </div>
+          <p class="brand-tagline">
+            <span class="brand-motto">ארטיזן, מחמצות ואפיית בוטיק</span>
+            <span class="keshet-badge">🛡️ בפיקוח קשת</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="header-controls">
+        <button id="langToggleBtn" class="btn btn-lang-pill" title="החלף שפה / Switch Language" onclick="toggleLanguage()">
+          <span class="lang-icon">🌐</span>
+          <span id="langLabel">English</span>
+        </button>
+        <button id="supportHeaderBtn" class="btn btn-icon btn-chat-header" title="צ'אט שירות ותמיכה מול קשת / Support Chat" onclick="openSupportChatModal()">
+          💬
+        </button>
+        <button id="userProfileBtn" class="btn btn-user-pill" title="אזור אישי והתחברות" onclick="openAuthOrProfileModal()">
+          <span class="user-avatar-icon" id="headerUserAvatar">👤</span>
+          <span class="user-name-text" id="headerUserName">אורח</span>
+          <span class="header-sub-badge d-none" id="headerSubBadge">PRO</span>
+        </button>
+        <button id="themeToggleBtn" class="btn btn-icon" title="החלף מצב תצוגה (בהיר/כהה)" onclick="toggleTheme()">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-bar container">
+      <button class="nav-tab active" data-tab="tab-calculator" onclick="switchTab('tab-calculator', this)">
+        <span class="tab-icon">🧮</span>
+        <span class="tab-label">מחשבון אופים חכם</span>
+      </button>
+      <button class="nav-tab" data-tab="tab-recipes" onclick="switchTab('tab-recipes', this)">
+        <span class="tab-icon">📖</span>
+        <span class="tab-label">ארסנל מתכונים</span>
+        <span class="tab-badge" id="recipeCountBadge">10</span>
+      </button>
+      <button class="nav-tab" data-tab="tab-profile" onclick="switchTab('tab-profile', this)">
+        <span class="tab-icon">⭐</span>
+        <span class="tab-label">אזור אישי ומועדפים</span>
+        <span class="tab-badge" id="favCountBadge">0</span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="main-container container">
+
+    <!-- ========================================== -->
+    <!-- TAB 1: מחשבון אופים חכם (Smart Baker's Calc) -->
+    <!-- ========================================== -->
+    <section id="tab-calculator" class="tab-content active">
+      
+      <!-- Calculator Header & Presets -->
+      <div class="card glass-card calc-header-card">
+        <div class="calc-header-top">
+          <div>
+            <h2 class="section-title">🌾 מחשבון אופים חכם וקיזוז מחמצות מדויק</h2>
+            <p class="section-sub">חישוב דינמי לפי גרם קמח או כמות יחידות, עם קיזוז מדויק של נוזלים וקמח מתוך המחמצת או הפסטה מדרה לתוך המלוש.</p>
+          </div>
+          <div class="calc-quick-actions">
+            <button class="btn btn-sm btn-ghost" onclick="resetCalcToDefaults()">
+              🔄 איפוס
+            </button>
+            <button class="btn btn-sm btn-outline-gold" onclick="openSaveBatchModal()" title="שמור נוסחה זו למחברת השקילות האישית שלך">
+              📓 שמור למחברת
+            </button>
+            <button class="btn btn-sm btn-whatsapp" onclick="shareCalculatorWhatsApp()" title="שתף נוסחה זו עם קישור ישיר בווטסאפ">
+              📲 שתף בווטסאפ
+            </button>
+            <button class="btn btn-sm btn-secondary" onclick="exportWeighingSheet()" title="העתק או שתף שקילה למלוש">
+              📋 שתף / העתק
+            </button>
+          </div>
+        </div>
+
+        <!-- Mode Toggle: By Flour vs By Units -->
+        <div class="mode-selector-wrap">
+          <div class="mode-toggle">
+            <button class="mode-btn active" id="modeBtnFlour" onclick="setCalcMode('flour', this)">
+              ⚖️ חישוב לפי גרם קמח (Flour Mode)
+            </button>
+            <button class="mode-btn" id="modeBtnUnits" onclick="setCalcMode('units', this)">
+              🍞 חישוב לפי כמות יחידות / כיכרות (Units Mode)
+            </button>
+          </div>
+        </div>
+
+        <!-- Fermentation System Picker -->
+        <div class="ferm-selector-box">
+          <label class="input-label-highlight">מערכת התפחה נבחרת לקיזוז (Fermentation System):</label>
+          <div class="ferm-grid">
+            <div class="ferm-option active" data-ferm="liquid_sourdough" onclick="toggleLeavenParams('liquid_sourdough')" role="button" tabindex="0">
+              <input type="radio" name="fermType" id="ferm_liquid_sourdough" value="liquid_sourdough" checked>
+              <div class="ferm-card">
+                <span class="ferm-icon">🧪</span>
+                <div class="ferm-info">
+                  <strong>מחמצת נוזלית (100%)</strong>
+                  <span>קיזוז 50% קמח / 50% מים</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ferm-option" data-ferm="pasta_madre" onclick="toggleLeavenParams('pasta_madre')" role="button" tabindex="0">
+              <input type="radio" name="fermType" id="ferm_pasta_madre" value="pasta_madre">
+              <div class="ferm-card">
+                <span class="ferm-icon">🇮🇹</span>
+                <div class="ferm-info">
+                  <strong>פסטה מדרה קשה (50%)</strong>
+                  <span>קיזוז 66.7% קמח / 33.3% מים</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ferm-option" data-ferm="yeast_dry" onclick="toggleLeavenParams('yeast_dry')" role="button" tabindex="0">
+              <input type="radio" name="fermType" id="ferm_yeast_dry" value="yeast_dry">
+              <div class="ferm-card">
+                <span class="ferm-icon">✨</span>
+                <div class="ferm-info">
+                  <strong>שמרים יבשים אינסטנט</strong>
+                  <span>0% קיזוז • פעילות מהירה</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ferm-option" data-ferm="yeast_fresh" onclick="toggleLeavenParams('yeast_fresh')" role="button" tabindex="0">
+              <input type="radio" name="fermType" id="ferm_yeast_fresh" value="yeast_fresh">
+              <div class="ferm-card">
+                <span class="ferm-icon">🧊</span>
+                <div class="ferm-info">
+                  <strong>שמרים לחים / טריים</strong>
+                  <span>0% קיזוז • יחס 3:1 מיבשים</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ferm-option" data-ferm="hybrid" onclick="toggleLeavenParams('hybrid')" role="button" tabindex="0">
+              <input type="radio" name="fermType" id="ferm_hybrid" value="hybrid">
+              <div class="ferm-card">
+                <span class="ferm-icon">⚡</span>
+                <div class="ferm-info">
+                  <strong>שילוב היברידי (מחמצת + שמרים)</strong>
+                  <span>קיזוז מלא + דחיפת שמרים</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calculator Inputs & Results Grid -->
+      <div class="calc-main-grid">
+
+        <!-- Column 1: Parameters Form -->
+        <div class="card glass-card calc-form-card">
+          <h3 class="card-title">⚙️ פרמטרי הבצק והאחוזים</h3>
+
+          <!-- Mode-specific primary inputs -->
+          <div id="flourModeInputs" class="mode-input-section">
+            <div class="input-group">
+              <div class="label-row">
+                <label for="inputBaseFlour">סה"כ קמח כולל במתכון (גרם):</label>
+                <span class="val-pill" id="displayBaseFlour">1,000 גרם</span>
+              </div>
+              <input type="number" id="inputBaseFlour" min="100" max="500000" step="50" value="1000" class="input-field primary-number" oninput="recalculate()">
+              <div class="quick-chips">
+                <button type="button" class="chip" onclick="setQuickFlour(500, this)">500g</button>
+                <button type="button" class="chip active" onclick="setQuickFlour(1000, this)">1kg</button>
+                <button type="button" class="chip" onclick="setQuickFlour(2500, this)">2.5kg</button>
+                <button type="button" class="chip" onclick="setQuickFlour(5000, this)">5kg</button>
+                <button type="button" class="chip" onclick="setQuickFlour(10000, this)">10kg</button>
+                <button type="button" class="chip" onclick="setQuickFlour(25000, this)">25kg</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="unitsModeInputs" class="mode-input-section d-none">
+            <div class="grid-2-col">
+              <div class="input-group">
+                <label for="inputUnitCount">כמות יחידות / כיכרות:</label>
+                <input type="number" id="inputUnitCount" min="1" max="1000" step="1" value="4" class="input-field primary-number" oninput="recalculate()">
+              </div>
+              <div class="input-group">
+                <label for="inputUnitWeight">משקל כיכר גולמית (גרם):</label>
+                <input type="number" id="inputUnitWeight" min="50" max="5000" step="10" value="850" class="input-field" oninput="recalculate()">
+              </div>
+            </div>
+            <div class="total-target-callout">
+              משקל בצק מבוקש כולל: <strong id="targetDoughDisplay">3,400 גרם</strong>
+            </div>
+          </div>
+
+          <hr class="divider">
+
+          <!-- Smart Formulation Recommendation Box -->
+          <div class="smart-rec-box">
+            <div class="smart-rec-header">
+              <span class="smart-rec-icon">💡</span>
+              <div>
+                <strong class="smart-rec-title">הצעת מערכת חכמה והמלצות מאסטר</strong>
+                <span class="smart-rec-sub">בחרו סגנון מאפה לקבלת יחסי אופים מדויקים והמלצות לישה</span>
+              </div>
+            </div>
+            <div class="smart-rec-controls">
+              <select id="presetSelect" class="input-field input-select" onchange="onSelectPreset(this.value)">
+                <option value="custom">-- בחרו סגנון מאפה להמלצת מערכת אוטומטית --</option>
+                <option value="sourdough_country">🥖 מחמצת כפרית קלאסית (Country Sourdough)</option>
+                <option value="pizza_napoletana">🍕 פיצה נפוליטנית אותנטית (Pizza Napoletana)</option>
+                <option value="rich_challah">🍞 חלת שבת עשירה וקטיפתית (Challah)</option>
+                <option value="french_baguette">🥖 באגט צרפתי מסורתי (Artisan Baguette)</option>
+                <option value="crispy_focaccia">🇮🇹 פוקאצ'ה איטלקית מלאת בועות (Focaccia)</option>
+                <option value="ny_bagel">🥯 בייגל ניו יורק מסורתי (NY Boiled Bagel)</option>
+                <option value="spelt_loaf">🥪 לחם כוסמין מלא 100% (Whole Spelt)</option>
+                <option value="french_brioche">🥐 בריוש חמאה צרפתי עשיר (Brioche)</option>
+              </select>
+            </div>
+            <div id="smartRecCard" class="smart-rec-card d-none">
+              <div class="smart-rec-specs" id="smartRecSpecs">
+                <!-- Dynamically injected via app.js -->
+              </div>
+              <button type="button" class="btn btn-sm btn-gold w-100 mt-2" onclick="applyCurrentPreset()">
+                ✨ החל הגדרות מומלצות אלו על המחשבון בלחיצה
+              </button>
+            </div>
+          </div>
+
+          <!-- Baker's Percentages Sliders & Controls -->
+          <div class="percentages-container">
+
+            <!-- Hydration -->
+            <div class="slider-row">
+              <div class="label-row">
+                <label for="rangeHydration">💧 הידרציה (אחוז מים כולל):</label>
+                <span class="pct-badge" id="badgeHydration">74%</span>
+              </div>
+              <div class="slider-input-combo">
+                <input type="range" id="rangeHydration" min="45" max="100" step="0.5" value="74" oninput="syncSlider('rangeHydration', 'numHydration')">
+                <input type="number" id="numHydration" min="45" max="100" step="0.5" value="74" class="num-compact" oninput="syncNum('numHydration', 'rangeHydration')">
+              </div>
+              <div class="slider-tip-pill" id="hydrationTipBox">
+                💡 <span>הידרציה של 74%: מעניקה פתיחת רשת גלוטן אידיאלית ומרקם אוורירי במחמצת.</span>
+              </div>
+            </div>
+
+            <!-- Starter % -->
+            <div class="slider-row" id="starterRow">
+              <div class="label-row">
+                <label for="rangeStarter" id="starterLabel">🧪 אחוז מחמצת / פסטה מדרה:</label>
+                <span class="pct-badge" id="badgeStarter">20%</span>
+              </div>
+              <div class="slider-input-combo">
+                <input type="range" id="rangeStarter" min="5" max="50" step="1" value="20" oninput="syncSlider('rangeStarter', 'numStarter')">
+                <input type="number" id="numStarter" min="5" max="50" step="1" value="20" class="num-compact" oninput="syncNum('numStarter', 'rangeStarter')">
+              </div>
+            </div>
+
+            <!-- Salt % -->
+            <div class="slider-row">
+              <div class="label-row">
+                <label for="rangeSalt">🧂 מלח שולחן / אטלנטי:</label>
+                <span class="pct-badge" id="badgeSalt">2.1%</span>
+              </div>
+              <div class="slider-input-combo">
+                <input type="range" id="rangeSalt" min="1.0" max="4.0" step="0.1" value="2.1" oninput="syncSlider('rangeSalt', 'numSalt')">
+                <input type="number" id="numSalt" min="1.0" max="4.0" step="0.1" value="2.1" class="num-compact" oninput="syncNum('numSalt', 'rangeSalt')">
+              </div>
+            </div>
+
+            <!-- Commercial Yeast % -->
+            <div class="slider-row d-none" id="yeastRow">
+              <div class="label-row">
+                <label for="numYeast" id="yeastLabel">✨ שמרים (אחוז ביחס לקמח):</label>
+                <span class="pct-badge" id="badgeYeast">0.4%</span>
+              </div>
+              <div class="slider-input-combo">
+                <input type="range" id="rangeYeast" min="0.1" max="5.0" step="0.1" value="0.4" oninput="syncSlider('rangeYeast', 'numYeast')">
+                <input type="number" id="numYeast" min="0.1" max="5.0" step="0.1" value="0.4" class="num-compact" oninput="syncNum('numYeast', 'rangeYeast')">
+              </div>
+            </div>
+
+            <!-- Optional Additions -->
+            <details class="optional-additions">
+              <summary>➕ תוספות אופציונליות (שמן, סוכר, קרח לטמפרטורה)</summary>
+              <div class="additions-grid">
+                <div class="input-group">
+                  <label for="numOil">🫒 שמן זית (%):</label>
+                  <input type="number" id="numOil" min="0" max="20" step="0.5" value="0" class="input-field" oninput="recalculate()">
+                </div>
+                <div class="input-group">
+                  <label for="numSugar">🍯 סוכר / דבש (%):</label>
+                  <input type="number" id="numSugar" min="0" max="30" step="0.5" value="0" class="input-field" oninput="recalculate()">
+                </div>
+                <div class="input-group">
+                  <label for="numIcePct">🧊 אחוז קרח מהמים (%):</label>
+                  <input type="number" id="numIcePct" min="0" max="50" step="5" value="0" class="input-field" oninput="recalculate()" title="מווסת את טמפרטורת סיום הלישה">
+                </div>
+              </div>
+            </details>
+
+          </div>
+        </div>
+
+        <!-- Column 2: Exact Scale Breakdown & Offset Matrix -->
+        <div class="card glass-card calc-output-card">
+          <div class="output-header">
+            <h3 class="card-title">🥣 שקילת מרכיבים מנוהלת ומקוזזת למלוש</h3>
+            <span class="status-indicator-badge live">קיזוז פעיל בזמן אמת</span>
+          </div>
+
+          <!-- Total Dough Summary Banner -->
+          <div class="dough-summary-banner">
+            <div class="summary-metric">
+              <span class="metric-label">משקל בצק כולל</span>
+              <span class="metric-val text-gold" id="totalDoughWeight">1,961 גרם</span>
+            </div>
+            <div class="summary-metric">
+              <span class="metric-label">כמות כיכרות / יחידות</span>
+              <span class="metric-val" id="summaryLoafCount">2.3 כיכרות</span>
+            </div>
+            <div class="summary-metric">
+              <span class="metric-label">הידרציה סופית</span>
+              <span class="metric-val" id="summaryHydration">74%</span>
+            </div>
+          </div>
+
+          <!-- The Offset Explanation Banner -->
+          <div class="offset-notice-box" id="offsetNotice">
+            <div class="offset-icon">⚖️</div>
+            <div class="offset-text">
+              <strong id="offsetNoticeTitle">קיזוז מחמצת נוזלית (100% הידרציה):</strong>
+              <span id="offsetNoticeBody">המחמצת מביאה 100 גרם קמח ו-100 גרם מים. משקלי הקמח והנוזלים הופחתו אוטומטית בהתאם!</span>
+            </div>
+          </div>
+
+          <!-- Weighing Matrix Table -->
+          <div class="table-responsive">
+            <table class="scale-table">
+              <thead>
+                <tr>
+                  <th>מרכיב לשקילה</th>
+                  <th>אחוז אופים</th>
+                  <th>משקל ברוטו (כולל)</th>
+                  <th class="col-highlight">שקילה בפועל למלוש 🥣</th>
+                  <th>הערת קיזוז</th>
+                </tr>
+              </thead>
+              <tbody id="scaleTableBody">
+                <!-- Dynamically populated via app.js -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Action Controls -->
+          <div class="scale-actions-row">
+            <button class="btn btn-gold" onclick="copyWeighingRecipe()">
+              📋 העתק שקילה ללוח
+            </button>
+            <button class="btn btn-outline" onclick="downloadWeighingTxt()">
+              💾 הורד קובץ שקילה
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: ארסנל המתכונים (Recipe Arsenal)      -->
+    <!-- ========================================== -->
+    <section id="tab-recipes" class="tab-content">
+      
+      <!-- Recipe Arsenal Header & Filter Tabs -->
+      <div class="card glass-card recipe-hero-card">
+        <div class="hero-flex">
+          <div>
+            <h2 class="section-title">📖 ארסנל המתכונים של בית האפיות</h2>
+            <p class="section-sub">מאגר מתכוני בוטיק מקצועיים עם שלבי הכנה כרונולוגיים מלאים, טמפרטורות מדויקות, וזמני מנוחה. בחרו מתכון להטענה ישירה למחשבון או לצפייה בשלבים.</p>
+          </div>
+        </div>
+
+        <!-- Recipe Filters: All / Favorites / Free / Pro -->
+        <div class="recipe-filter-bar">
+          <div class="filter-pills">
+            <button class="filter-pill active" data-filter="all" onclick="filterRecipes('all', this)">
+              הכל (<span id="countAll">0</span>)
+            </button>
+            <button class="filter-pill filter-fav" data-filter="favorites" onclick="filterRecipes('favorites', this)">
+              מועדפים שלי ⭐ (<span id="countFav">0</span>)
+            </button>
+            <button class="filter-pill" data-filter="free" onclick="filterRecipes('free', this)">
+              מתכונים חינמיים 🌾 (<span id="countFree">0</span>)
+            </button>
+            <button class="filter-pill filter-pro" data-filter="pro" onclick="filterRecipes('pro', this)">
+              מתכוני פרימיום 👑 Pro (<span id="countPro">0</span>)
+            </button>
+          </div>
+
+          <!-- Category Select & Search -->
+          <div class="search-category-group">
+            <input type="text" id="recipeSearchInput" placeholder="🔍 חפש מתכון, קמח, מרכיב..." class="input-field input-search" oninput="onSearchRecipes()">
+            <select id="categorySelect" class="input-field input-select" onchange="onCategoryFilterChange()">
+              <option value="all">כל הקטגוריות</option>
+              <option value="מחמצת כפרית">מחמצת כפרית</option>
+              <option value="וינואזרי וקונדיטוריה">וינואזרי וקונדיטוריה</option>
+              <option value="מאפים ופוקאצ'ות">מאפים ופוקאצ'ות</option>
+              <option value="לחמים מיוחדים">לחמים מיוחדים</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recipes Grid -->
+      <div class="recipes-grid" id="recipesGridContainer">
+        <!-- Rendered dynamically via app.js -->
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: האזור האישי והמועדפים (Personal Area) -->
+    <!-- ========================================== -->
+    <section id="tab-profile" class="tab-content">
+      
+      <!-- Profile Hero Card -->
+      <div class="card glass-card profile-hero-card">
+        <div class="profile-hero-content">
+          <div class="profile-avatar-large" id="profileAvatarLarge">👤</div>
+          <div class="profile-details">
+            <div class="profile-title-row">
+              <h2 id="profileDisplayName">אופה אורח</h2>
+              <span class="user-role-badge" id="profileRoleBadge">אורח</span>
+            </div>
+            <p class="profile-email-text" id="profileEmail">התחברות מקומית שמורה בדפדפן</p>
+            <div class="profile-stats-row">
+              <div class="profile-stat-box">
+                <span class="stat-number text-gold" id="statFavoritesCount">0</span>
+                <span class="stat-label">מתכונים מועדפים</span>
+              </div>
+              <div class="profile-stat-box">
+                <span class="stat-number text-gold" id="statSavedBatchesCount">0</span>
+                <span class="stat-label">שקילות שמורות</span>
+              </div>
+              <div class="profile-stat-box">
+                <span class="stat-number text-gold" id="statBakesCompleted">0</span>
+                <span class="stat-label">אפייות שהושלמו 🔥</span>
+              </div>
+            </div>
+          </div>
+          <div class="profile-actions-col">
+            <button class="btn btn-gold" onclick="openAuthModal()">
+              🔑 התחבר / החלף חשבון
+            </button>
+            <button class="btn btn-outline btn-sm mt-2" onclick="logoutCurrentUser()">
+              🚪 התנתק
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subscription & Team Hub Card -->
+      <div class="card glass-card subscription-hub-card mt-3" id="profileSubscriptionCard">
+        <div class="sub-card-header">
+          <div class="sub-tier-info">
+            <span class="sub-tier-icon" id="subCardIcon">🌾</span>
+            <div>
+              <div class="sub-title-row">
+                <h3 id="subCardTierTitle" data-i18n="sub_current_plan">מנוי נוכחי: אופה ביתי (חינם)</h3>
+                <span class="badge-sub-status badge-free" id="subCardBadge">חינם 🌾</span>
+              </div>
+              <p class="sub-renewal-text" id="subCardRenewal" data-i18n="sub_free_desc">גישה למחשבון החכם, מתכוני הבסיס ועד 3 שקילות שמורות במחברת.</p>
+              <div class="team-seats-indicator d-none" id="subTeamSeatsIndicator">
+                <span class="seats-icon">👥</span>
+                <span id="subTeamSeatsText">מושבי צוות פעילים: 1 מתוך 5 אופים</span>
+              </div>
+            </div>
+          </div>
+          <div class="sub-cta-actions">
+            <button class="btn btn-gold btn-upgrade-glow" onclick="openSubscriptionModal()">
+              <span id="subCardActionBtnText" data-i18n="sub_btn_upgrade">💎 שדרג ל-Master Pro / צוות</span>
+            </button>
+            <button class="btn btn-outline btn-chat-support" onclick="openSupportChatModal()">
+              💬 <span data-i18n="sub_btn_chat">צ'אט שירות מול קשת</span>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Multi-Seat / Crew Benefits Preview -->
+        <div class="sub-benefits-bar">
+          <div class="benefit-item">
+            <span class="benefit-icon">⏱️</span>
+            <span class="benefit-text" data-i18n="benefit_timers">מצב אפייה פעיל וטיימרים קוליים</span>
+          </div>
+          <div class="benefit-item">
+            <span class="benefit-icon">👑</span>
+            <span class="benefit-text" data-i18n="benefit_all_recipes">כל 10 מתכוני הבוטיק פתוחים</span>
+          </div>
+          <div class="benefit-item">
+            <span class="benefit-icon">👥</span>
+            <span class="benefit-text" data-i18n="benefit_team_seats">חבילת צוות: עד 5 אופים במקביל</span>
+          </div>
+          <div class="benefit-item">
+            <span class="benefit-icon">🛡️</span>
+            <span class="benefit-text" data-i18n="benefit_keshet_support">ליווי מקצועי ישיר ממלונת קשת</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Favorites Section -->
+      <div class="profile-section-block mt-3">
+        <div class="profile-section-header">
+          <div>
+            <h3 class="section-title">⭐ המתכונים המועדפים שלי</h3>
+            <p class="section-sub">מתכוני הבוטיק שסימנתם בכוכב לגישה מהירה</p>
+          </div>
+        </div>
+        <div class="recipes-grid" id="profileFavoritesGrid">
+          <!-- Populated dynamically via app.js -->
+        </div>
+      </div>
+
+      <!-- Saved Batches Notebook Section -->
+      <div class="profile-section-block mt-3">
+        <div class="profile-section-header">
+          <div>
+            <h3 class="section-title">📓 מחברת השקילות השמורות שלי</h3>
+            <p class="section-sub">נוסחאות בצק שהרכבתם במחשבון האופים ושמרתם לשימוש חוזר</p>
+          </div>
+        </div>
+        <div class="saved-batches-grid" id="profileSavedBatchesGrid">
+          <!-- Populated dynamically via app.js -->
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- MODAL: שלבי הכנה מלאים (Recipe Detail Modal) -->
+  <!-- ========================================== -->
+  <div id="recipeModal" class="modal-overlay d-none" onclick="onModalOverlayClick(event, 'recipeModal')">
+    <div class="modal-dialog glass-modal">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-icon" id="modalRecipeIcon">🥖</span>
+          <div>
+            <h3 id="modalRecipeTitle">שם המתכון</h3>
+            <span class="modal-category" id="modalRecipeCategory">מחמצת כפרית</span>
+          </div>
+        </div>
+        <button class="btn-close" onclick="closeModal('recipeModal')">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-pro-badge-row d-none" id="modalProBadgeRow">
+          <span class="badge-pro-big">👑 מתכון פרימיום Pro — בית האפיות</span>
+        </div>
+
+        <p class="modal-description" id="modalRecipeDesc"></p>
+
+        <!-- Baker's Key Specs -->
+        <div class="specs-grid">
+          <div class="spec-card">
+            <span class="spec-label">התפחה</span>
+            <span class="spec-val" id="modalSpecFerm">מחמצת נוזלית</span>
+          </div>
+          <div class="spec-card">
+            <span class="spec-label">הידרציה</span>
+            <span class="spec-val" id="modalSpecHydration">74%</span>
+          </div>
+          <div class="spec-card">
+            <span class="spec-label">מחמצת/שמרים</span>
+            <span class="spec-val" id="modalSpecStarter">20%</span>
+          </div>
+          <div class="spec-card">
+            <span class="spec-label">מלח</span>
+            <span class="spec-val" id="modalSpecSalt">2.1%</span>
+          </div>
+        </div>
+
+        <!-- Flour Blend -->
+        <div class="flour-blend-box">
+          <h4>🌾 הרכב קמחים (Flour Blend):</h4>
+          <ul id="modalFlourBlendList" class="flour-list"></ul>
+        </div>
+
+        <!-- Chronological Process Steps -->
+        <div class="process-steps-box">
+          <h4>⏱️ שלבי הכנה כרונולוגיים מפורטים:</h4>
+          <div id="modalProcessStepsList" class="steps-timeline"></div>
+        </div>
+
+        <!-- Pro secret tips -->
+        <div id="modalProNotesBox" class="pro-notes-callout d-none">
+          <strong>💡 סוד המאסטר (Artisan Pro):</strong>
+          <p id="modalProNotesContent"></p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-gold btn-lg" id="modalStartBakerModeBtn" onclick="startWorkflowFromModal()">
+          🔥 התחל אפייה פעילה (טיימרים ושלבים)
+        </button>
+        <button class="btn btn-outline-gold" id="modalLoadToCalcBtn" onclick="loadCurrentModalRecipeToCalculator()">
+          🧮 טען למחשבון
+        </button>
+        <button class="btn btn-whatsapp" id="modalShareWhatsappBtn" onclick="shareCurrentModalRecipeWhatsApp()">
+          📲 שתף בווטסאפ
+        </button>
+        <button class="btn btn-secondary" onclick="exportCurrentModalRecipe()">
+          📋 שתף / העתק
+        </button>
+        <button class="btn btn-outline" onclick="closeModal('recipeModal')">סגור</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: מצב אפייה פעיל ומודרך עם טיימרים (Baker Mode) -->
+  <!-- ========================================== -->
+  <div id="bakerWorkflowModal" class="modal-overlay d-none" onclick="onModalOverlayClick(event, 'bakerWorkflowModal')">
+    <div class="modal-dialog glass-modal workflow-dialog">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-icon">🔥</span>
+          <div>
+            <h3 id="workflowRecipeTitle">מצב אפייה פעיל</h3>
+            <span class="modal-category" id="workflowStepCounter">שלב 1 מתוך 8</span>
+          </div>
+        </div>
+        <button class="btn-close" onclick="closeWorkflowModal()">✕</button>
+      </div>
+
+      <!-- Stepper progress bar -->
+      <div class="workflow-stepper-wrap">
+        <div class="workflow-progress-track">
+          <div class="workflow-progress-fill" id="workflowProgressFill" style="width: 12%;"></div>
+        </div>
+        <div class="workflow-steps-pills" id="workflowStepsPills">
+          <!-- Populated dynamically via app.js -->
+        </div>
+      </div>
+
+      <div class="modal-body workflow-body">
+        
+        <!-- Step Highlight Card -->
+        <div class="active-step-card">
+          <div class="active-step-badge-row">
+            <span class="step-num-badge" id="workflowCurrentStepNum">שלב 1</span>
+            <span class="step-phase-badge" id="workflowCurrentPhase">ערבוב ואוטוליזה</span>
+            <span class="step-duration-badge" id="workflowCurrentDuration">⏱️ 45 דקות</span>
+          </div>
+
+          <h3 class="active-step-title" id="workflowCurrentTitle">ערבוב ואוטוליזה מבוקרת (Autolyse)</h3>
+
+          <!-- Environmental specs -->
+          <div class="step-specs-mini-grid">
+            <div class="spec-mini-item" id="workflowSpecTemp">
+              <span>🌡️ טמפרטורה:</span>
+              <strong id="workflowTempVal">24°C</strong>
+            </div>
+            <div class="spec-mini-item" id="workflowSpecFolds">
+              <span>🔄 קיפולים:</span>
+              <strong id="workflowFoldsVal">ללא</strong>
+            </div>
+            <div class="spec-mini-item" id="workflowSpecAutolyse">
+              <span>🌾 סוג אוטוליזה:</span>
+              <strong id="workflowAutolyseVal">מלאה</strong>
+            </div>
+          </div>
+
+          <!-- Ingredients callout for this step -->
+          <div class="step-ingredients-highlight" id="workflowIngredientsBox">
+            <div class="ing-highlight-title">🥣 מרכיבים נכנסים בשלב זה:</div>
+            <p id="workflowIngredientsVal"></p>
+          </div>
+
+          <!-- Step Instructions -->
+          <div class="step-instructions-box">
+            <div class="inst-title">📝 הוראות עבודה וביצוע:</div>
+            <p id="workflowInstructionsVal"></p>
+          </div>
+        </div>
+
+        <!-- Live Digital Countdown Timer -->
+        <div class="digital-timer-card">
+          <div class="timer-top-label">
+            <span>⏱️ שעון עצר אינטראקטיבי לשלב:</span>
+            <span id="timerStatusLabel" class="timer-status">מוכן להפעלה</span>
+          </div>
+
+          <div class="timer-digits-display" id="timerDigitsDisplay">
+            45:00
+          </div>
+
+          <!-- Big Touch Buttons for Floury Hands -->
+          <div class="timer-touch-controls">
+            <button class="btn btn-timer-primary" id="btnToggleTimer" onclick="toggleTimer()">
+              ▶️ הפעל טיימר
+            </button>
+            <button class="btn btn-timer-secondary" onclick="addTimerSeconds(300)">
+              +5 דקות ⏱️
+            </button>
+            <button class="btn btn-timer-secondary" onclick="resetCurrentStepTimer()">
+              🔄 אפס זמן
+            </button>
+          </div>
+          <p class="timer-sound-note">🔔 צליל התראה נעים ורטט מופעלים אוטומטית כשהשעון מגיע ל-00:00</p>
+        </div>
+
+      </div>
+
+      <div class="modal-footer workflow-footer">
+        <button class="btn btn-outline" id="workflowPrevBtn" onclick="goToPrevWorkflowStep()">
+          ⏮️ שלב קודם
+        </button>
+        <button class="btn btn-gold btn-lg" id="workflowNextBtn" onclick="completeAndNextWorkflowStep()">
+          סמן כהושלם ועבור לשלב הבא ✅
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: התחברות, הרשמה וכניסה כאורח (Auth Modal) -->
+  <!-- ========================================== -->
+  <div id="authModal" class="modal-overlay d-none" onclick="onModalOverlayClick(event, 'authModal')">
+    <div class="modal-dialog glass-modal auth-modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-icon">🌾</span>
+          <div>
+            <h3>מועדון האופים של בית האפיות</h3>
+            <span class="modal-category">התחברות, הרשמה וכניסה מהירה</span>
+          </div>
+        </div>
+        <button class="btn-close" onclick="closeModal('authModal')">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="auth-tabs">
+          <button class="auth-tab active" id="authTabGuest" onclick="switchAuthTab('guest', this)">
+            🚶‍♂️ כניסה כאורח
+          </button>
+          <button class="auth-tab" id="authTabLogin" onclick="switchAuthTab('login', this)">
+            🔑 התחברות אופה
+          </button>
+          <button class="auth-tab" id="authTabRegister" onclick="switchAuthTab('register', this)">
+            ✨ הרשמה לאופה חדש
+          </button>
+        </div>
+
+        <!-- 1. Guest Form -->
+        <div id="authFormGuest" class="auth-form-panel">
+          <div class="guest-welcome-card">
+            <span class="guest-icon">🥖</span>
+            <h4>ברוכים הבאים לבית האפיות!</h4>
+            <p>באפשרותכם להמשיך מיד כאורח, להשתמש במחשבון האופים החכם, לשמור מועדפים ושקילות אישיות בדפדפן זה.</p>
+            <div class="input-group mt-2">
+              <label for="guestNickname">כינוי אופה (אופציונלי):</label>
+              <input type="text" id="guestNickname" placeholder="למשל: יוסף חיים / אופה ביתי" class="input-field" value="אופה אורח">
+            </div>
+            <button class="btn btn-gold w-100 mt-3" onclick="submitGuestLogin()">
+              🌾 המשך כאורח עכשיו
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. Login Form -->
+        <div id="authFormLogin" class="auth-form-panel d-none">
+          <div class="input-group">
+            <label for="loginEmail">כתובת אימייל:</label>
+            <input type="email" id="loginEmail" placeholder="your@email.com" class="input-field">
+          </div>
+          <div class="input-group mt-2">
+            <label for="loginName">שם האופה:</label>
+            <input type="text" id="loginName" placeholder="השם שלכם" class="input-field">
+          </div>
+          <button class="btn btn-gold w-100 mt-3" onclick="submitBakerLogin()">
+            🔑 כניסה לחשבון
+          </button>
+        </div>
+
+        <!-- 3. Register Form -->
+        <div id="authFormRegister" class="auth-form-panel d-none">
+          <div class="input-group">
+            <label for="regName">שם מלא:</label>
+            <input type="text" id="regName" placeholder="למשל: יוסף חיים" class="input-field">
+          </div>
+          <div class="input-group mt-2">
+            <label for="regEmail">כתובת אימייל:</label>
+            <input type="email" id="regEmail" placeholder="your@email.com" class="input-field">
+          </div>
+          <div class="input-group mt-2">
+            <label for="regLevel">רמת ניסיון באפייה:</label>
+            <select id="regLevel" class="input-field input-select">
+              <option value="חובב ביתי מתחיל">🌱 חובב ביתי מתחיל</option>
+              <option value="אופה מחמצות מתקדם" selected>🌾 אופה מחמצות מתקדם</option>
+              <option value="אופה מקצועי / קונדיטור">👑 אופה מקצועי / קונדיטור</option>
+            </select>
+          </div>
+          <button class="btn btn-gold w-100 mt-3" onclick="submitBakerRegister()">
+            ✨ צור פרופיל אופה והצטרף
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: שמירת שקילה למחברת (Save Batch Modal) -->
+  <!-- ========================================== -->
+  <div id="saveBatchModal" class="modal-overlay d-none" onclick="onModalOverlayClick(event, 'saveBatchModal')">
+    <div class="modal-dialog glass-modal" style="max-width: 480px;">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-icon">📓</span>
+          <div>
+            <h3>שמירת שקילה למחברת האישית</h3>
+            <span class="modal-category">שמירת נוסחת הבצק לשימוש עתידי</span>
+          </div>
+        </div>
+        <button class="btn-close" onclick="closeModal('saveBatchModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <label for="batchTitleInput">שם הנוסחה / הבצק:</label>
+          <input type="text" id="batchTitleInput" placeholder="למשל: מחמצת כפרית 76% לשישי" class="input-field">
+        </div>
+        <div class="input-group mt-2">
+          <label for="batchNotesInput">הערות אופה (אופציונלי):</label>
+          <input type="text" id="batchNotesInput" placeholder="למשל: קמח מניטובה 20%, 3 קיפולי סליל" class="input-field">
+        </div>
+        <div class="batch-summary-preview mt-2" id="batchSummaryPreview">
+          <!-- Summary of current settings -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-gold" onclick="confirmSaveBatch()">💾 שמור למחברת שלי</button>
+        <button class="btn btn-outline" onclick="closeModal('saveBatchModal')">ביטול</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: תוכניות מנוי ושדרוג (Subscription Modal) -->
+  <!-- ========================================== -->
+  <div id="subscriptionModal" class="modal-overlay d-none" onclick="onModalOverlayClick(event, 'subscriptionModal')">
+    <div class="modal-dialog glass-modal" style="max-width: 900px;">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-icon">💎</span>
+          <div>
+            <h3 data-i18n="sub_modal_title">תוכניות מנוי ושדרוג — בית האפיות</h3>
+            <span class="modal-category" data-i18n="sub_modal_sub">סנכרון מלא מול מלונת קשת • ביטול בכל עת</span>
+          </div>
+        </div>
+        <button class="btn-close" onclick="closeModal('subscriptionModal')">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Billing Cycle Switcher -->
+        <div class="billing-switcher-container">
+          <div class="billing-cycle-pill">
+            <button type="button" class="cycle-btn active" id="cycleBtnMonthly" onclick="setSubBillingCycle('monthly')" data-i18n="sub_cycle_monthly">
+              חיוב חודשי
+            </button>
+            <button type="button" class="cycle-btn" id="cycleBtnAnnual" onclick="setSubBillingCycle('annual')">
+              <span data-i18n="sub_cycle_annual">חיוב שנתי</span>
+              <span class="discount-tag" data-i18n="sub_annual_save">חיסכון 17% 🎁</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3 Tiers Grid -->
+        <div class="plans-grid">
+          <!-- Tier 1: Free -->
+          <div class="plan-card" id="planCardFree">
+            <div class="plan-header">
+              <span class="plan-icon">🌾</span>
+              <h4 data-i18n="tier_free_title">חובב ביתי (חינם)</h4>
+              <p class="plan-tagline" data-i18n="tier_free_tagline">לאופים בתחילת הדרך</p>
+            </div>
+            <div class="plan-price-wrap">
+              <span class="plan-price" id="planPriceFree">₪0</span>
+              <span class="plan-period" data-i18n="per_month">/חודש</span>
+            </div>
+            <ul class="plan-features-list">
+              <li>✔️ <span data-i18n="feat_calc">מחשבון אופים חכם וקיזוז מחמצת</span></li>
+              <li>✔️ <span data-i18n="feat_presets">המלצות מערכת ל-8 סגנונות בצק</span></li>
+              <li>✔️ <span data-i18n="feat_free_recipes">צפייה בסיסית במתכוני ארסנל</span></li>
+              <li>✔️ <span data-i18n="feat_notebook_3">שמירת עד 3 שקילות במחברת</span></li>
+              <li class="text-dim">❌ <span data-i18n="feat_no_timers">מצב אפייה וטיימרים קוליים</span></li>
+            </ul>
+            <button type="button" class="btn btn-outline w-100" id="btnSelectPlanFree" onclick="activateSubscription('free')">
+              <span data-i18n="plan_btn_current">התוכנית הנוכחית שלך</span>
+            </button>
+          </div>
+
+          <!-- Tier 2: Master Baker Pro -->
+          <div class="plan-card popular" id="planCardPro">
+            <span class="plan-badge" data-i18n="badge_popular">⭐ הכי פופולרי</span>
+            <div class="plan-header">
+              <span class="plan-icon">👑</span>
+              <h4 data-i18n="tier_pro_title">מאסטר אופה Pro</h4>
+              <p class="plan-tagline" data-i18n="tier_pro_tagline">לאופי מחמצות ומאפיות ביתיות</p>
+            </div>
+            <div class="plan-price-wrap">
+              <span class="plan-price" id="planPricePro">₪39</span>
+              <span class="plan-period" id="planPeriodPro" data-i18n="per_month">/חודש</span>
+            </div>
+            <ul class="plan-features-list">
+              <li class="highlight">✨ <span data-i18n="feat_all_10_recipes">כל 10 מתכוני הבוטיק פתוחים מלא</span></li>
+              <li class="highlight">✨ <span data-i18n="feat_active_timers">מצב אפייה פעיל + טיימרים וצלילי תנור</span></li>
+              <li>✔️ <span data-i18n="feat_unlimited_notebook">מחברת שקילות בלתי מוגבלת</span></li>
+              <li>✔️ <span data-i18n="feat_pro_badge">תג Master Baker מוזהב בפרופיל</span></li>
+              <li>✔️ <span data-i18n="feat_wa_share">שיתוף שקילות ומתכונים בווטסאפ</span></li>
+              <li>✔️ <span data-i18n="feat_direct_chat">ערוץ צ'אט ייעוץ אישי</span></li>
+            </ul>
+            <button type="button" class="btn btn-gold w-100" id="btnSelectPlanPro" onclick="showCheckoutDrawer('pro')">
+              <span data-i18n="plan_btn_select_pro">👑 בחר ב-Master Pro</span>
+            </button>
+          </div>
+
+          <!-- Tier 3: Bakery Crew / Team -->
+          <div class="plan-card team" id="planCardTeam">
+            <span class="plan-badge badge-team-tag" data-i18n="badge_team">👥 חבילת צוות ומאפיות</span>
+            <div class="plan-header">
+              <span class="plan-icon">🥖</span>
+              <h4 data-i18n="tier_team_title">חבילת צוות (Team Crew)</h4>
+              <p class="plan-tagline" data-i18n="tier_team_tagline">לקונדיטוריות וצוותי אופים (עד 5 משתמשים)</p>
+            </div>
+            <div class="plan-price-wrap">
+              <span class="plan-price" id="planPriceTeam">₪99</span>
+              <span class="plan-period" id="planPeriodTeam" data-i18n="per_month">/חודש</span>
+            </div>
+            <ul class="plan-features-list">
+              <li class="highlight">👥 <span data-i18n="feat_5_seats"><strong>עד 5 מושבי אופים (Baker Seats)</strong></span></li>
+              <li class="highlight">🔄 <span data-i18n="feat_team_sync">סנכרון שקילות ונוסחאות בין חברי הצוות</span></li>
+              <li>✔️ <span data-i18n="feat_pro_included">כל תכונות ה-Master Pro כלולות</span></li>
+              <li>✔️ <span data-i18n="feat_mixer_export">ייצוא פתקי שקילה ייעודיים למלוש</span></li>
+              <li>✔️ <span data-i18n="feat_keshet_vip">תמיכה עסקית וליווי ישיר ממלונת קשת</span></li>
+              <li>✔️ <span data-i18n="feat_tax_invoice">הפקת חשבוניות מס מרוכזות לעסקים</span></li>
+            </ul>
+            <button type="button" class="btn btn-outline-gold w-100" id="btnSelectPlanTeam" onclick="showCheckoutDrawer('team')">
+              <span data-i18n="plan_btn_select_team">👥 בחר בחבילת צוות</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Checkout Drawer (Shown when Pro or Team selected) -->
+        <div class="checkout-drawer d-none" id="checkoutDrawer">
+          <div class="checkout-header">
+            <h4 id="checkoutPlanSummaryTitle">הפעלת מנוי Master Pro — ₪39/חודש</h4>
+            <p class="text-muted" style="font-size: 0.85rem;" data-i18n="checkout_desc">החיוב מתבצע בצורה מאובטחת ומפוקחת ע״י מערך התשלומים של מלונת קשת 🛡️</p>
+          </div>
+
+          <div class="payment-methods-tabs">
+            <button type="button" class="payment-tab-btn active" data-method="card" onclick="setPaymentMethod('card', this)">
+              💳 <span data-i18n="pay_method_card">כרטיס אשראי</span>
+            </button>
+            <button type="button" class="payment-tab-btn" data-method="bit" onclick="setPaymentMethod('bit', this)">
+              📱 <span data-i18n="pay_method_bit">אפליקציית ביט (Bit)</span>
+            </button>
+            <button type="button" class="payment-tab-btn" data-method="applepay" onclick="setPaymentMethod('applepay', this)">
+              🍏 <span data-i18n="pay_method_apple">Apple / Google Pay</span>
+            </button>
+          </div>
+
+          <!-- Card Form Panel -->
+          <div id="paymentFormCard" class="payment-form-panel">
+            <div class="input-group">
+              <label for="checkoutCardNumber" data-i18n="label_card_num">מספר כרטיס אשראי:</label>
+              <input type="text" id="checkoutCardNumber" placeholder="4580 •••• •••• 1234" class="input-field" maxlength="19">
+            </div>
+            <div class="input-row mt-2" style="display: flex; gap: 10px;">
+              <div class="input-group" style="flex: 1;">
+                <label for="checkoutCardExp" data-i18n="label_card_exp">תוקף (MM/YY):</label>
+                <input type="text" id="checkoutCardExp" placeholder="08/28" class="input-field" maxlength="5">
+              </div>
+              <div class="input-group" style="flex: 1;">
+                <label for="checkoutCardCvv" data-i18n="label_card_cvv">CVV (3 ספרות):</label>
+                <input type="password" id="checkoutCardCvv" placeholder="•••" class="input-field" maxlength="3">
+              </div>
+            </div>
+            <div class="input-group mt-2">
+              <label for="checkoutCardHolder" data-i18n="label_card_holder">שם מלא של בעל/ת הכרטיס:</label>
+              <input type="text" id="checkoutCardHolder" placeholder="ישראל ישראלי" class="input-field">
+            </div>
+          </div>
+
+          <!-- Bit Form Panel -->
+          <div id="paymentFormBit" class="payment-form-panel d-none text-center" style="padding: 16px 0;">
+            <span style="font-size: 40px;">📱</span>
+            <h4 style="margin: 8px 0;" data-i18n="bit_title">תשלום מאובטח באמצעות ביט (Bit)</h4>
+            <p class="text-muted" style="font-size: 0.88rem;" data-i18n="bit_desc">בלחיצה על אישור תועברו לאישור מהיר של הבקשה ישירות באפליקציית ביט בנייד שלכם.</p>
+          </div>
+
+          <!-- Apple Pay Panel -->
+          <div id="paymentFormApplePay" class="payment-form-panel d-none text-center" style="padding: 16px 0;">
+            <span style="font-size: 40px;">🍏</span>
+            <h4 style="margin: 8px 0;" data-i18n="apple_title">תשלום מהיר בנגיעה אחת (One-Touch Pay)</h4>
+            <p class="text-muted" style="font-size: 0.88rem;" data-i18n="apple_desc">זיהוי ביומטרי (Face ID / Touch ID) ואישור מיידי של המנוי ללא הקלדת כרטיס.</p>
+          </div>
+
+          <div class="checkout-footer mt-3" style="display: flex; gap: 10px; align-items: center; justify-content: space-between;">
+            <button type="button" class="btn btn-gold btn-lg" id="btnSubmitPayment" onclick="processCheckoutSubmission()">
+              🔒 <span id="submitPaymentText" data-i18n="btn_confirm_pay">אישור תשלום והפעלת מנוי מיידית</span>
+            </button>
+            <button type="button" class="btn btn-ghost" onclick="hideCheckoutDrawer()" data-i18n="btn_cancel">ביטול</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: צ'אט שירות מול מלונת קשת (Keshet Support Chat) -->
+  <!-- ========================================== -->
+  <div id="supportChatModal" class="modal-overlay d-none" onclick="onModalOverlayClick(event, 'supportChatModal')">
+    <div class="modal-dialog glass-modal chat-dialog">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-icon">🛡️</span>
+          <div>
+            <h3 data-i18n="chat_modal_title">מלונת קשת — שירות וליווי אופים</h3>
+            <span class="modal-category" data-i18n="chat_modal_sub">ערוץ ייעוץ ישיר למנויים, חשבוניות ונוסחאות אפייה</span>
+          </div>
+        </div>
+        <button class="btn-close" onclick="closeModal('supportChatModal')">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="chat-concierge-status">
+          <span class="status-dot-pulse">🟢</span>
+          <span data-i18n="chat_status_online">נציג מלונת קשת מחובר ומסייע בזמן אמת</span>
+        </div>
+
+        <!-- Quick Prompt Chips -->
+        <div class="chat-quick-chips">
+          <button type="button" class="chat-chip" onclick="sendQuickChatMessage('👥 איך עובדת חבילת הצוות של 5 אופים?')" data-i18n="chip_team">👥 איך עובדת חבילת הצוות?</button>
+          <button type="button" class="chat-chip" onclick="sendQuickChatMessage('🥖 איזה הידרציה מומלצת לקמח חזק?')" data-i18n="chip_hyd">🥖 ייעוץ הידרציה לקמח</button>
+          <button type="button" class="chat-chip" onclick="sendQuickChatMessage('🧾 כיצד מפיקים חשבונית מס לעסק?')" data-i18n="chip_invoice">🧾 חשבונית מס למאפייה</button>
+          <button type="button" class="chat-chip" onclick="sendQuickChatMessage('⏱️ הטיימר של האפייה מצלצל כשהמסך כבוי?')" data-i18n="chip_timer">⏱️ שאלה על טיימר האפייה</button>
+        </div>
+
+        <!-- Message Stream -->
+        <div class="chat-messages-container" id="chatMessagesContainer">
+          <!-- Populated dynamically via app.js -->
+        </div>
+
+        <!-- Chat Input Bar -->
+        <div class="chat-input-bar">
+          <input type="text" id="chatInputMessage" class="input-field chat-input-field" placeholder="הקלד/י הודעה למלונת קשת..." data-i18n-placeholder="chat_input_placeholder" onkeypress="handleChatKeyPress(event)">
+          <button type="button" class="btn btn-gold" onclick="sendUserChatMessage()">
+            🚀 <span data-i18n="chat_btn_send">שלח</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="container footer-content">
+      <p>© 2026 <strong>בית האפיות (The Bakery House)</strong> • אפליקציה מקצועית לאופים • בפיקוח קשת 🛡️</p>
+      <div class="footer-links">
+        <a href="https://the-bakery-house-app.netlify.app" target="_blank" rel="noopener" style="color: var(--gold-400); text-decoration: none;">the-bakery-house-app.netlify.app</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

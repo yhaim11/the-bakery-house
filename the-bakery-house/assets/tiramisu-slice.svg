@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%" fill="none">
+  <defs>
+    <!-- Soft Drop Shadow -->
+    <filter id="cakeShadow" x="-20%" y="-20%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+    
+    <!-- Cocoa Dusting Gradient -->
+    <linearGradient id="cocoaTopGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5c2c16"/>
+      <stop offset="50%" stop-color="#3d1d0e"/>
+      <stop offset="100%" stop-color="#2a1208"/>
+    </linearGradient>
+
+    <!-- Mascarpone Cream Gradient -->
+    <linearGradient id="creamGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fffbeb"/>
+      <stop offset="40%" stop-color="#fef3c7"/>
+      <stop offset="100%" stop-color="#fde68a"/>
+    </linearGradient>
+    
+    <linearGradient id="creamGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fffdf5"/>
+      <stop offset="60%" stop-color="#fef08a"/>
+      <stop offset="100%" stop-color="#facc15" stop-opacity="0.8"/>
+    </linearGradient>
+
+    <!-- Coffee Biscuit Layer Gradient -->
+    <linearGradient id="biscuitGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d97706"/>
+      <stop offset="25%" stop-color="#92400e"/>
+      <stop offset="70%" stop-color="#78350f"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </linearGradient>
+
+    <!-- Biscuit Shaded Side -->
+    <linearGradient id="biscuitShaded" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#854d0e"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </linearGradient>
+
+    <!-- Cocoa Powder Texture Filter -->
+    <radialGradient id="cocoaHighlight" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#854d0e" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#271006" stop-opacity="0.95"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Ambient Under-Cake Shadow -->
+  <ellipse cx="60" cy="98" rx="46" ry="11" fill="#000000" fill-opacity="0.38"/>
+
+  <!-- Main Cake Group with Filter -->
+  <g filter="url(#cakeShadow)">
+    
+    <!-- LEFT FACET (Front-Left facing side of the slice) -->
+    <!-- Base coffee biscuit layer -->
+    <path d="M 22 76 L 58 92 L 58 83 L 22 67 Z" fill="url(#biscuitGrad)"/>
+    <ellipse cx="38" cy="81" rx="9" ry="2.8" fill="#451a03" fill-opacity="0.5"/>
+    
+    <!-- Cream layer 1 (lower) -->
+    <path d="M 22 67 L 58 83 L 58 73 L 22 57 Z" fill="url(#creamGrad1)"/>
+    
+    <!-- Middle coffee savoiardi biscuit layer -->
+    <path d="M 22 57 L 58 73 L 58 63 L 22 47 Z" fill="url(#biscuitGrad)"/>
+    <!-- Ladyfinger pill outline hint -->
+    <path d="M 28 53 Q 40 59 52 65" stroke="#451a03" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="1 3"/>
+
+    <!-- Cream layer 2 (upper) -->
+    <path d="M 22 47 L 58 63 L 58 53 L 22 37 Z" fill="url(#creamGrad2)"/>
+
+    <!-- RIGHT FACET (Right-side flank of the slice) -->
+    <!-- Base coffee biscuit layer -->
+    <path d="M 58 92 L 98 75 L 98 66 L 58 83 Z" fill="url(#biscuitShaded)"/>
+    
+    <!-- Cream layer 1 (lower) -->
+    <path d="M 58 83 L 98 66 L 98 56 L 58 73 Z" fill="#fef3c7"/>
+    
+    <!-- Middle coffee savoiardi biscuit layer -->
+    <path d="M 58 73 L 98 56 L 98 46 L 58 63 Z" fill="url(#biscuitShaded)"/>
+    
+    <!-- Cream layer 2 (upper) -->
+    <path d="M 58 63 L 98 46 L 98 36 L 58 53 Z" fill="#fef9c3"/>
+
+    <!-- TOP SURFACE (Cocoa Powder dusted top diamond) -->
+    <!-- M 22 37 L 58 53 L 98 36 L 62 20 Z -->
+    <path d="M 22 37 L 58 53 L 98 36 L 62 20 Z" fill="url(#cocoaHighlight)"/>
+    <path d="M 22 37 L 58 53 L 98 36 L 62 20 Z" fill="url(#cocoaTopGrad)" opacity="0.85"/>
+
+    <!-- Cocoa Powder Velvet Specks / Texture on Top -->
+    <g fill="#1a0c06" opacity="0.6">
+      <circle cx="40" cy="34" r="1.1"/>
+      <circle cx="46" cy="38" r="0.9"/>
+      <circle cx="53" cy="32" r="1.3"/>
+      <circle cx="60" cy="42" r="1.0"/>
+      <circle cx="68" cy="35" r="1.2"/>
+      <circle cx="75" cy="30" r="0.9"/>
+      <circle cx="50" cy="44" r="0.8"/>
+      <circle cx="82" cy="33" r="1.0"/>
+      <circle cx="33" cy="35" r="0.8"/>
+      <circle cx="64" cy="27" r="1.1"/>
+      <circle cx="72" cy="25" r="0.8"/>
+      <circle cx="57" cy="48" r="0.9"/>
+      <circle cx="88" cy="35" r="0.8"/>
+    </g>
+
+    <!-- Delicate Mascarpone Top Piping Dollops (Classic Tiramisu Quenelles) -->
+    <ellipse cx="38" cy="35" rx="5" ry="3" fill="#fffdf5" opacity="0.25"/>
+    <ellipse cx="56" cy="40" rx="6" ry="3.5" fill="#fffdf5" opacity="0.2"/>
+    <ellipse cx="74" cy="32" rx="5.5" ry="3.2" fill="#fffdf5" opacity="0.22"/>
+
+    <!-- Chocolate Shavings / Curls on Top -->
+    <!-- Chocolate Curl 1 -->
+    <path d="M 52 33 C 55 28 62 28 64 32 C 65 34 62 37 58 36 C 54 35 53 32 55 30" fill="none" stroke="#260f06" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M 53 32 C 55 29 60 29 62 32" fill="none" stroke="#65351a" stroke-width="0.9" stroke-linecap="round"/>
+
+    <!-- Chocolate Curl 2 -->
+    <path d="M 64 36 C 68 32 74 34 75 38 C 76 40 72 42 69 41" fill="none" stroke="#1d0a03" stroke-width="1.8" stroke-linecap="round"/>
+
+    <!-- Coffee Bean Garnish -->
+    <g transform="translate(42, 26) rotate(-22)">
+      <ellipse cx="0" cy="0" rx="5.5" ry="3.8" fill="#2b1408"/>
+      <path d="M -4 0 Q 0 -1.5 4 0" stroke="#fcd34d" stroke-width="0.9" stroke-linecap="round" opacity="0.75"/>
+    </g>
+
+    <!-- Second Coffee Bean -->
+    <g transform="translate(74, 26) rotate(35)">
+      <ellipse cx="0" cy="0" rx="5.2" ry="3.6" fill="#381a0a"/>
+      <path d="M -3.8 0 Q 0 -1.2 3.8 0" stroke="#fbbf24" stroke-width="0.8" stroke-linecap="round" opacity="0.7"/>
+    </g>
+
+    <!-- Glossy Highlight Along Front Corner Ridge -->
+    <line x1="58" y1="53" x2="58" y2="92" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" opacity="0.28"/>
+  </g>
+</svg>
