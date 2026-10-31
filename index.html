@@ -4254,6 +4254,89 @@ body.theme-dark .poke-test-stage {
   border-radius: 6px;
 }
 
+
+/* App Update Notification Banner & iOS 18 Segmented Auth */
+.app-update-banner {
+  position: fixed;
+  top: 14px;
+  left: 12px;
+  right: 12px;
+  z-index: 9999;
+  max-width: 620px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #8B1E3F 0%, #4A0E1F 100%);
+  color: #FFFFFF;
+  border-radius: 16px;
+  padding: 12px 16px;
+  box-shadow: 0 12px 34px rgba(74, 14, 31, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  animation: slideDownUpdate 0.35s ease-out;
+}
+
+@keyframes slideDownUpdate {
+  from { transform: translateY(-40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.update-banner-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.update-rocket-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.btn-update-apply {
+  background: #FFFFFF;
+  color: #8B1E3F;
+  border: none;
+  font-weight: 800;
+  font-size: 0.84rem;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn-update-dismiss {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 0.78rem;
+  padding: 6px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.auth-segmented-bar .seg-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 0.84rem;
+  cursor: pointer;
+  border-radius: 9px;
+  transition: all 0.15s ease;
+}
+
+.auth-segmented-bar .seg-btn.active {
+  background: #FFFFFF;
+  color: #8B1E3F;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
 </style>
 </head>
 <body class="theme-atelier">
@@ -6872,6 +6955,68 @@ body.theme-dark .poke-test-stage {
     </div>
   </div>
 
+
+  <!-- ========================================== -->
+  <!-- MODAL: תנאי שימוש, בטיחות והגנה משפטית     -->
+  <!-- ========================================== -->
+  <div id="termsOfServiceModal" class="modal-overlay d-none" onclick="onModalOverlayClick(event, 'termsOfServiceModal')">
+    <div class="modal-dialog glass-modal" style="max-width: 680px; max-height: 88vh; display: flex; flex-direction: column; overflow: hidden;">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-icon">🛡️</span>
+          <div>
+            <h3>תנאי שימוש, בטיחות ומדיניות פרטיות</h3>
+            <span class="modal-category">תקנון הגנה משפטית — בית האפיות ומלונת קשת</span>
+          </div>
+        </div>
+        <button class="btn-close" onclick="closeModal('termsOfServiceModal')">✕</button>
+      </div>
+      <div class="modal-body" style="flex: 1; overflow-y: auto; padding: 20px; font-size: 0.85rem; line-height: 1.6; color: #1C1917;">
+        <h4 style="color: #8B1E3F; font-size: 0.96rem; margin-bottom: 6px;">1. בטיחות באפייה, תנורים וציוד חם</h4>
+        <p style="margin-bottom: 12px;">
+          השימוש במחשבוני האפייה, זמני התנור, משטחי פלדה (Baking Steel) וסירי ברזל יצוק הוא באחריותו הבלעדית של המשתמש. מומלץ לנקוט משנה זהירות בשימוש באדים רותחים, כפפות מגן עמידות בחום ותערי חריצה (Lame) חדים. בית האפיות ומלונת קשת אינם נושאים באחריות לכוויות או נזק למכשירי חשמל ביתיים.
+        </p>
+
+        <h4 style="color: #8B1E3F; font-size: 0.96rem; margin-bottom: 6px;">2. רגישויות למזון ואלרגנים</h4>
+        <p style="margin-bottom: 12px;">
+          מתכוני המערכת מכילים דגנים המכילים גלוטן (חיטה, שיפון, כוסמין), שמרים ותוספות מגוונות. על המשתמש לבדוק רגישויות בריאותיות ואלרגיות של כל סועד טרם האפייה.
+        </p>
+
+        <h4 style="color: #8B1E3F; font-size: 0.96rem; margin-bottom: 6px;">3. הגנת פרטיות ואבטחת מידע</h4>
+        <p style="margin-bottom: 12px;">
+          פרטי הקשר של האופה (כתובת אימייל ומספר טלפון נייד) נשמרים בצורה מאובטחת ולעולם אינם נחשפים בפומבי בקהילה, בצ'אט או בדפי האפליקציה. המידע משמש אך ורק לאימות זהות, ניהול מנוי ושחזור חשבון תחת פיקוח מלונת קשת.
+        </p>
+
+        <h4 style="color: #8B1E3F; font-size: 0.96rem; margin-bottom: 6px;">4. קניין רוחני ותכנים</h4>
+        <p style="margin-bottom: 12px;">
+          נוסחאות הבצק, תוכנות המחשבון, ארכיטקטורת המערכת והסמלים מוגנים בזכויות יוצרים. מתכונים אישיים שנשמרים על ידי המשתמש נשארים בבעלותו המלאה.
+        </p>
+      </div>
+      <div class="modal-footer" style="padding: 12px 20px; background: #FBF9F5; border-top: 1px solid var(--border-hairline); display: flex; justify-content: flex-end;">
+        <button type="button" class="btn btn-gold btn-sm" onclick="closeModal('termsOfServiceModal')">הבנתי ואישרתי ✅</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- TOAST BANNER: התראת עדכון גרסה חדשה באוויר -->
+  <!-- ========================================== -->
+  <div id="appUpdateToastBanner" class="app-update-banner d-none">
+    <div class="update-banner-inner">
+      <div style="display: flex; align-items: center; gap: 12px; min-width: 0;">
+        <span class="update-rocket-icon">🚀</span>
+        <div>
+          <strong style="font-size: 0.92rem; color: #FFFFFF; display: block;">גרסה חדשה של בית האפיות זמינה! (<span id="appNewVersionText">v10.1</span>)</strong>
+          <span style="font-size: 0.74rem; color: rgba(255,255,255,0.85); display: block;">כולל שדרוגי אבטחה, עיצוב התחברות חדש ומעקב אופים במלונה</span>
+        </div>
+      </div>
+      <div style="display: flex; gap: 8px; flex-shrink: 0;">
+        <button type="button" class="btn-update-apply" onclick="forceAppUpdateAndReload()">עדכן והתקן כעת ✨</button>
+        <button type="button" class="btn-update-dismiss" onclick="dismissAppUpdateBanner()">אחר כך</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ========================================== -->
   <!-- MODAL: התחברות, הרשמה וכניסה כאורח (Auth Modal) -->
   <!-- ========================================== -->
@@ -6889,108 +7034,162 @@ body.theme-dark .poke-test-stage {
       </div>
 
       <div class="modal-body">
-        <div class="auth-tabs">
-          <button class="auth-tab active" id="authTabGuest" onclick="switchAuthTab('guest', this)">
-            🚶‍♂️ כניסה כאורח
-          </button>
-          <button class="auth-tab" id="authTabLogin" onclick="switchAuthTab('login', this)">
+        <!-- Centered Apple iOS 18 Segmented Control -->
+        <div class="apple-segmented-bar auth-segmented-bar" role="tablist" style="display: flex; width: 100%; margin-bottom: 18px; padding: 4px; background: var(--bg-control); border-radius: 12px; border: 1px solid var(--border-hairline);">
+          <button type="button" class="seg-btn active" id="authTabLogin" onclick="switchAuthTab('login', this)" style="flex: 1; padding: 9px 12px; font-weight: 700;">
             🔑 התחברות אופה
           </button>
-          <button class="auth-tab" id="authTabRegister" onclick="switchAuthTab('register', this)">
+          <button type="button" class="seg-btn" id="authTabRegister" onclick="switchAuthTab('register', this)" style="flex: 1; padding: 9px 12px; font-weight: 700;">
             ✨ הרשמה לאופה חדש
+          </button>
+          <button type="button" class="seg-btn" id="authTabGuest" onclick="switchAuthTab('guest', this)" style="flex: 1; padding: 9px 12px; font-weight: 700;">
+            🚶‍♂️ כניסה כאורח
           </button>
         </div>
 
-        <!-- 1. Guest Form -->
-        <div id="authFormGuest" class="auth-form-panel">
-          <div class="guest-welcome-card">
-            <span class="guest-icon">🥖</span>
-            <h4>ברוכים הבאים לבית האפיות!</h4>
-            <p>באפשרותכם להמשיך מיד כאורח, להשתמש במחשבון האופים החכם, לשמור מועדפים ושקילות אישיות בדפדפן זה.</p>
-            <div class="input-group mt-2">
-              <label for="guestNickname">כינוי אופה (אופציונלי):</label>
-              <input type="text" id="guestNickname" placeholder="למשל: יוסף חיים / אופה ביתי" class="input-field" value="אופה אורח">
+        <!-- 1. Login Form (Clean & Specific Inputs) -->
+        <div id="authFormLogin" class="auth-form-panel">
+          <p class="text-muted" style="font-size: 0.82rem; margin-bottom: 14px;">
+            התחברו באמצעות מספר הטלפון הנייד או כתובת האימייל שלכם (הפרטים מוגנים, מוצפנים ולעולם אינם נחשפים בקהילה 🔒):
+          </p>
+          <form onsubmit="handleBakerLoginSubmit(event)">
+            <div class="input-group">
+              <label for="loginName">שם / כינוי אופה:</label>
+              <input type="text" id="loginName" placeholder="למשל: יוסף חיים" class="input-field">
             </div>
-            <button class="btn btn-gold w-100 mt-3" onclick="submitGuestLogin()">
+            <div class="grid-2-col mt-2">
+              <div class="input-group">
+                <label for="loginPhone">מספר טלפון נייד:</label>
+                <input type="tel" id="loginPhone" placeholder="050-1234567" class="input-field" style="direction: ltr; text-align: right;">
+              </div>
+              <div class="input-group">
+                <label for="loginEmail">כתובת אימייל:</label>
+                <input type="email" id="loginEmail" placeholder="name@domain.com" class="input-field" style="direction: ltr; text-align: right;">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-gold btn-lg w-100 mt-3" onclick="submitBakerLogin()">
+              🔑 כניסה לחשבון
+            </button>
+          </form>
+          <div style="text-align: center; margin-top: 14px;">
+            <span style="font-size: 0.8rem; color: var(--text-secondary);">עדיין אין לך חשבון? </span>
+            <button type="button" class="btn-link-gold" style="font-size: 0.8rem; background: none; border: none; cursor: pointer; text-decoration: underline;" onclick="switchAuthTab('register', document.getElementById('authTabRegister'))">הירשם כאן בחינם ✨</button>
+          </div>
+        </div>
+
+        <!-- 2. Register Form (Full Structured Profile & Terms Protection) -->
+        <div id="authFormRegister" class="auth-form-panel d-none">
+          <form onsubmit="handleBakerRegisterSubmit(event)">
+            <!-- Profile Avatar Picker -->
+            <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px; background: #FBF9F5; padding: 12px 16px; border-radius: 14px; border: 1px solid var(--border-hairline);">
+              <div style="position: relative; width: 62px; height: 62px; flex-shrink: 0;">
+                <div id="regAvatarCirclePreview" class="profile-avatar-large" style="width: 62px; height: 62px; font-size: 1.25rem;">אפ</div>
+                <button type="button" class="avatar-edit-overlay-btn" onclick="document.getElementById('regAvatarFileInput').click()" title="העלה תמונת פרופיל אישית" style="width: 24px; height: 24px; font-size: 11px;">📷</button>
+                <input type="file" id="regAvatarFileInput" accept="image/*" style="display: none;" onchange="handleRegAvatarUpload(event)">
+              </div>
+              <div>
+                <strong style="font-size: 0.88rem; color: #1C1917; display: block;">תמונת פרופיל אישית</strong>
+                <span style="font-size: 0.74rem; color: var(--text-secondary);">אופציונלי — תוכל להעלות תמונה או להשאיר מונוגרמה נקייה</span>
+              </div>
+            </div>
+
+            <!-- Specific Clear Fields (NO "או" confusion!) -->
+            <div class="input-group">
+              <label for="regName">שם מלא / כינוי אופה:</label>
+              <input type="text" id="regName" placeholder="למשל: יוסף חיים" class="input-field" required>
+            </div>
+
+            <div class="grid-2-col mt-2">
+              <div class="input-group">
+                <label for="regPhone">מספר טלפון נייד:</label>
+                <input type="tel" id="regPhone" placeholder="050-1234567" class="input-field" style="direction: ltr; text-align: right;" required>
+              </div>
+              <div class="input-group">
+                <label for="regEmail">כתובת אימייל:</label>
+                <input type="email" id="regEmail" placeholder="name@domain.com" class="input-field" style="direction: ltr; text-align: right;" required>
+              </div>
+            </div>
+
+            <div class="input-group mt-2">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <label for="regCity">אזור מגורים / מאפייה:</label>
+                <button type="button" class="btn-link-gold" style="font-size: 0.72rem; background: none; border: none; cursor: pointer; text-decoration: underline;" onclick="autoFillRegCityFromClimate()">📍 זהה אוטומטית מחיישן המזג אוויר</button>
+              </div>
+              <select id="regCity" class="input-field input-select" required>
+                <option value="רמת גן / תל אביב והמרכז">רמת גן / תל אביב והמרכז</option>
+                <option value="ירושלים והסביבה">ירושלים והסביבה</option>
+                <option value="חיפה והצפון">חיפה והצפון</option>
+                <option value="באר שבע והדרום">באר שבע והדרום</option>
+                <option value="צפת והגליל">צפת והגליל</option>
+                <option value="אילת והערבה">אילת והערבה</option>
+                <option value="אזור השרון">אזור השרון</option>
+                <option value="השפלה ומודיעין">השפלה ומודיעין</option>
+              </select>
+            </div>
+
+            <div class="grid-2-col mt-2">
+              <div class="input-group">
+                <label for="regLevel">רמת ניסיון באפייה:</label>
+                <select id="regLevel" class="input-field input-select" onchange="onRegLevelOrSpecialtyChange()">
+                  <option value="אופה ביתי חובב">אופה ביתי חובב (Amateur)</option>
+                  <option value="אופה מחמצות מתקדם" selected>אופה מחמצות מתקדם (Advanced)</option>
+                  <option value="שף אופה / קונדיטור מקצועי">שף אופה / קונדיטור מקצועי (Pro Master)</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label for="regSpecialty">התמחות ראשית:</label>
+                <select id="regSpecialty" class="input-field input-select" onchange="onRegLevelOrSpecialtyChange()">
+                  <option value="מחמצות כפריות ושיפון" selected>🥖 מחמצות כפריות ושיפון</option>
+                  <option value="פסטה מדרה ווינואזרי">🇮🇹 פסטה מדרה ווינואזרי</option>
+                  <option value="פיצה נפוליטנית ופוקאצ'ה">🍕 פיצה נפוליטנית ופוקאצ'ה</option>
+                  <option value="חלות ומאפי שבת">✨ חלות בוטיק ומאפי שבת</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="callout-tip-box mt-2" id="regSpecialtyImpactPreview" style="background: rgba(14, 116, 144, 0.08); border: 1px solid rgba(14, 116, 144, 0.2); border-radius: 10px; padding: 10px 12px; font-size: 0.78rem; color: #0E7490;">
+              💡 <strong>התאמת המערכת עבורך:</strong> תג ההתמחות יוצג ליד שמך בקהילת האופים, ונוסחאות הבצק יותאמו לפי סגנון האפייה שבחרת.
+            </div>
+
+                        <!-- Hidden compatibility crest options preserved silently -->
+            <div class="crest-picker-grid d-none" id="authCrestPicker">
+              <button type="button" class="crest-option-btn active" data-crest="monogram" onclick="selectUserAvatarCrest('monogram', this)">אפ מונוגרמה</button>
+              <button type="button" class="crest-option-btn" data-crest="wheat" onclick="selectUserAvatarCrest('wheat', this)">✦ שיבולת זהב</button>
+              <button type="button" class="crest-option-btn" data-crest="jar" onclick="selectUserAvatarCrest('jar', this)">◈ כלי מחמצת</button>
+              <button type="button" class="crest-option-btn" data-crest="toque" onclick="selectUserAvatarCrest('toque', this)">♛ כתר שף</button>
+              <button type="button" class="crest-option-btn" data-crest="flame" onclick="selectUserAvatarCrest('flame', this)">❖ להבת תנור</button>
+            </div>
+
+            <!-- Legal Terms of Service & Privacy Protection Checkbox -->
+            <div class="mt-3" style="display: flex; align-items: flex-start; gap: 8px;">
+              <input type="checkbox" id="regTermsAgree" style="margin-top: 3px; cursor: pointer;" required checked>
+              <label for="regTermsAgree" style="font-size: 0.76rem; color: #44403C; cursor: pointer; line-height: 1.45;">
+                קראתי ואני מאשר את <a href="javascript:void(0)" onclick="openTermsOfServiceModal()" style="color: #8B1E3F; font-weight: 700; text-decoration: underline;">תנאי השימוש, תקנון הבטיחות ומדיניות הפרטיות</a> של בית האפיות ומלונת קשת 🛡️
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-gold btn-lg w-100 mt-3">
+              ✨ צור פרופיל אופה והצטרף
+            </button>
+          </form>
+        </div>
+
+        <!-- 3. Guest Form -->
+        <div id="authFormGuest" class="auth-form-panel d-none">
+          <div class="guest-welcome-card" style="text-align: center; padding: 20px 14px;">
+            <span class="guest-icon" style="font-size: 2.4rem;">🥖</span>
+            <h4 style="font-size: 1.15rem; font-weight: 800; margin: 8px 0 4px 0;">גלישה כאורח בבית האפיות</h4>
+            <p class="text-muted" style="font-size: 0.84rem; line-height: 1.5; max-width: 440px; margin: 0 auto 14px;">
+              באפשרותך להשתמש במחשבון האופים, לצפות בארסנל המתכונים ובמדריכי האקדמיה. השתתפות בצ'אט הקהילתי, שמירת באצ'ים אישיים והפעלת טיימרים שמורים מחייבים חיבור לפרופיל רשום.
+            </p>
+            <div class="input-group" style="max-width: 340px; margin: 0 auto 14px;">
+              <label for="guestNickname">כינוי זמני (אופציונלי):</label>
+              <input type="text" id="guestNickname" placeholder="אופה אורח" class="input-field" value="אופה אורח">
+            </div>
+            <button type="button" class="btn btn-gold w-100" style="max-width: 340px;" onclick="submitGuestLogin()">
               🌾 המשך כאורח עכשיו
             </button>
           </div>
-        </div>
-
-        <!-- 2. Login Form (Email OR Phone OR Both) -->
-        <div id="authFormLogin" class="auth-form-panel d-none">
-          <p class="text-muted" style="font-size: 0.78rem; margin-bottom: 10px;">ניתן להתחבר באמצעות כתובת אימייל, מספר טלפון נייד, או שניהם יחד (הפרטים מוגנים ומוסתרים מהקהילה 🔒):</p>
-          <div class="input-group">
-            <label for="loginName">שם / כינוי אופה:</label>
-            <input type="text" id="loginName" placeholder="למשל: יוסף חיים" class="input-field">
-          </div>
-          <div class="grid-2-col mt-2">
-            <div class="input-group">
-              <label for="loginPhone">מספר טלפון נייד (או מייל):</label>
-              <input type="tel" id="loginPhone" placeholder="050-0000000" class="input-field" style="direction: ltr; text-align: right;">
-            </div>
-            <div class="input-group">
-              <label for="loginEmail">כתובת אימייל (או נייד):</label>
-              <input type="email" id="loginEmail" placeholder="name@domain.com" class="input-field" style="direction: ltr; text-align: right;">
-            </div>
-          </div>
-          <button class="btn btn-gold w-100 mt-3" onclick="submitBakerLogin()">
-            🔑 כניסה לחשבון
-          </button>
-        </div>
-
-        <!-- 3. Register Form (Email OR Phone + Bespoke Crest Avatar Picker) -->
-        <div id="authFormRegister" class="auth-form-panel d-none">
-          <div class="input-group">
-            <label for="regName">שם מלא / כינוי בקהילה:</label>
-            <input type="text" id="regName" placeholder="למשל: יוסף חיים" class="input-field">
-          </div>
-          <div class="grid-2-col mt-2">
-            <div class="input-group">
-              <label for="regPhone">מספר טלפון נייד (או מייל):</label>
-              <input type="tel" id="regPhone" placeholder="050-0000000" class="input-field" style="direction: ltr; text-align: right;">
-            </div>
-            <div class="input-group">
-              <label for="regEmail">כתובת אימייל (או נייד):</label>
-              <input type="email" id="regEmail" placeholder="name@domain.com" class="input-field" style="direction: ltr; text-align: right;">
-            </div>
-          </div>
-          <div class="input-group mt-2">
-            <label for="regLevel">התמחות ורמת ניסיון:</label>
-            <select id="regLevel" class="input-field input-select">
-              <option value="חובב ביתי מתחיל">אופה ביתי</option>
-              <option value="אופה מחמצות מתקדם" selected>אופה מחמצות ופסטה מדרה</option>
-              <option value="אופה מקצועי / קונדיטור">שף אופה / קונדיטור מקצועי</option>
-            </select>
-          </div>
-          <div class="input-group mt-2">
-            <label>סמל פרופיל יוקרתי (ניתן להחלפה בכל עת):</label>
-            <div class="crest-picker-grid" id="authCrestPicker">
-              <button type="button" class="crest-option-btn active" data-crest="monogram" onclick="selectUserAvatarCrest('monogram', this)">
-                <strong style="color: var(--gold-400); font-size: 0.85rem;">אפ</strong>
-                <span>מונוגרמה</span>
-              </button>
-              <button type="button" class="crest-option-btn" data-crest="wheat" onclick="selectUserAvatarCrest('wheat', this)">
-                <strong style="color: var(--gold-400); font-size: 0.85rem;">✦</strong>
-                <span>שיבולת זהב</span>
-              </button>
-              <button type="button" class="crest-option-btn" data-crest="jar" onclick="selectUserAvatarCrest('jar', this)">
-                <strong style="color: var(--gold-400); font-size: 0.85rem;">◈</strong>
-                <span>כלי מחמצת</span>
-              </button>
-              <button type="button" class="crest-option-btn" data-crest="toque" onclick="selectUserAvatarCrest('toque', this)">
-                <strong style="color: var(--gold-400); font-size: 0.85rem;">♛</strong>
-                <span>כתר שף</span>
-              </button>
-              <button type="button" class="crest-option-btn" data-crest="flame" onclick="selectUserAvatarCrest('flame', this)">
-                <strong style="color: var(--gold-400); font-size: 0.85rem;">❖</strong>
-                <span>להבת תנור</span>
-              </button>
-            </div>
-          </div>
-          <button class="btn btn-gold w-100 mt-3" onclick="submitBakerRegister()">
-            ✨ צור פרופיל אופה והצטרף
-          </button>
         </div>
       </div>
     </div>
@@ -7512,6 +7711,9 @@ body.theme-dark .poke-test-stage {
         <button type="button" class="gov-tab-btn active" data-gov-tab="analytics" onclick="switchGovTab('analytics', this)">
           📊 צפיות ואנליטיקס בזמן אמת
         </button>
+        <button type="button" class="gov-tab-btn" data-gov-tab="bakers" onclick="switchGovTab('bakers', this)">
+          👥 ניהול אופים ומשתמשים (<span id="govBakersCountBadge">0</span>)
+        </button>
         <button type="button" class="gov-tab-btn" data-gov-tab="pricing" onclick="switchGovTab('pricing', this)">
           💎 תמחור מתכונים ומנויים
         </button>
@@ -7570,6 +7772,57 @@ body.theme-dark .poke-test-stage {
                 </thead>
                 <tbody id="govViewsArchiveTableBody">
                   <!-- Dynamically populated via app.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+                <!-- Tab 1.5: Registered Bakers & Users Roster (Executive Control) -->
+        <div id="govTabBakers" class="gov-panel d-none">
+          <div class="card glass-card" style="padding: 18px; margin-bottom: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+              <div>
+                <h4 style="color: var(--gold-400); margin: 0; font-size: 1.05rem;">👥 מאגר האופים והפרופילים הרשומים</h4>
+                <p class="text-muted" style="font-size: 0.82rem; margin: 3px 0 0 0;">פרטי קשר, אזור שימוש, התמחות וסטטוס מנוי — נתונים מוגנים ומפוקחים ע״י מלונת קשת</p>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button type="button" class="btn btn-outline-gold btn-sm" onclick="exportBakersRosterCsv()">📥 ייצא רשימה (CSV / Excel)</button>
+                <button type="button" class="btn btn-ghost btn-sm" onclick="refreshGovBakersRoster()">🔄 רענן</button>
+              </div>
+            </div>
+
+            <!-- Roster Search & Filter Controls -->
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
+              <input type="text" id="govBakerSearchInput" placeholder="🔍 חפש לפי שם, מייל, טלפון או עיר..." class="input-field" style="flex: 1.4; padding: 6px 12px; font-size: 0.82rem;" oninput="filterGovBakersTable()">
+              <select id="govBakerCityFilter" class="input-field input-select" style="flex: 1; padding: 6px 10px; font-size: 0.82rem;" onchange="filterGovBakersTable()">
+                <option value="all">כל האזורים</option>
+                <option value="רמת גן / תל אביב">רמת גן / תל אביב</option>
+                <option value="ירושלים">ירושלים</option>
+                <option value="חיפה">חיפה והצפון</option>
+                <option value="באר שבע">באר שבע והדרום</option>
+                <option value="השרון">השרון</option>
+                <option value="השפלה">השפלה</option>
+              </select>
+            </div>
+
+            <!-- Bakers Table -->
+            <div class="table-responsive">
+              <table class="scale-table archive-table" id="govBakersTable">
+                <thead>
+                  <tr>
+                    <th>אופה</th>
+                    <th>אימייל (מוגן)</th>
+                    <th>טלפון נייד</th>
+                    <th>אזור שימוש</th>
+                    <th>התמחות ורמה</th>
+                    <th>הצטרפות</th>
+                    <th>סטטוס מנוי</th>
+                    <th>פעולות</th>
+                  </tr>
+                </thead>
+                <tbody id="govBakersTableBody">
+                  <!-- Populated dynamically via JS -->
                 </tbody>
               </table>
             </div>
@@ -13412,7 +13665,7 @@ function updateCrumbVisualizer(hydration) {
 // 27. SMART PWA INSTALLATION ENGINE & VERSION UPDATE NOTIFIER
 // ==========================================================================
 
-const APP_CURRENT_VERSION = 'v2.1.0';
+var APP_CURRENT_VERSION = '10.1';
 let deferredInstallPrompt = null;
 
 function initSmartPwaEngine() {
@@ -19197,6 +19450,488 @@ setTimeout(() => {
   renderAcademyGrid();
   populateWorkflowStarterSelect();
 }, 400);
+
+
+// ==========================================================================
+// 36. V10.1 ARCHITECTURE: REFINED APPLE AUTH, REGISTERED BAKERS ROSTER,
+//     TERMS OF SERVICE LEGAL SHIELDING & REAL-TIME UPDATE BANNER
+// ==========================================================================
+
+APP_CURRENT_VERSION = "10.1";
+let pendingRegAvatarDataUri = "";
+
+// 1. Apple-Style Auth Tab Switcher
+switchAuthTab = function(tabKey, btnEl) {
+  const panelLogin = document.getElementById("authFormLogin");
+  const panelReg = document.getElementById("authFormRegister");
+  const panelGuest = document.getElementById("authFormGuest");
+
+  document.querySelectorAll(".auth-segmented-bar .seg-btn").forEach(b => b.classList.remove("active"));
+  if (btnEl) {
+    btnEl.classList.add("active");
+  } else {
+    const map = { login: "authTabLogin", register: "authTabRegister", guest: "authTabGuest" };
+    const t = document.getElementById(map[tabKey] || "authTabLogin");
+    if (t) t.classList.add("active");
+  }
+
+  if (panelLogin) panelLogin.classList.toggle("d-none", tabKey !== "login");
+  if (panelReg) panelReg.classList.toggle("d-none", tabKey !== "register");
+  if (panelGuest) panelGuest.classList.toggle("d-none", tabKey !== "guest");
+};
+
+function autoFillRegCityFromClimate() {
+  const select = document.getElementById("regCity");
+  if (!select) return;
+  const currentCity = (bioLabState && bioLabState.cityName) || "רמת גן / תל אביב";
+  for (let opt of select.options) {
+    if (opt.value.includes(currentCity) || currentCity.includes(opt.value)) {
+      select.value = opt.value;
+      showToast(`האזור עודכן אוטומטית לפי חיישן המזג אוויר: ${opt.value} 📍`);
+      return;
+    }
+  }
+  select.value = "רמת גן / תל אביב והמרכז";
+  showToast(`האזור הוגדר: ${select.value} 📍`);
+}
+
+function handleRegAvatarUpload(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.onload = function() {
+      const canvas = document.createElement("canvas");
+      const size = 180;
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext("2d");
+      const minDim = Math.min(img.width, img.height);
+      const sx = (img.width - minDim) / 2;
+      const sy = (img.height - minDim) / 2;
+      ctx.drawImage(img, sx, sy, minDim, minDim, 0, 0, size, size);
+      pendingRegAvatarDataUri = canvas.toDataURL("image/jpeg", 0.85);
+
+      const preview = document.getElementById("regAvatarCirclePreview");
+      if (preview) {
+        preview.style.backgroundImage = `url("${pendingRegAvatarDataUri}")`;
+        preview.style.backgroundSize = "cover";
+        preview.style.backgroundPosition = "center";
+        preview.textContent = "";
+      }
+      showToast("תמונת הפרופיל נטענה בהצלחה 📸");
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function onRegLevelOrSpecialtyChange() {
+  const level = document.getElementById("regLevel")?.value || "";
+  const spec = document.getElementById("regSpecialty")?.value || "";
+  const tip = document.getElementById("regSpecialtyImpactPreview");
+  if (tip) {
+    tip.innerHTML = `💡 <strong>התאמת המערכת:</strong> כ-${escapeHtml(level)} עם התמחות ב-${escapeHtml(spec)}, המערכת תבליט עבורך מתכונים רלוונטיים ותציג תג מומחה בקהילה.`;
+  }
+}
+
+function openTermsOfServiceModal() {
+  openModal("termsOfServiceModal");
+}
+
+// Ensure registered bakers master database in Keshet's Kennel
+function getMasterRegisteredBakers() {
+  try {
+    const raw = localStorage.getItem("bakery_registered_bakers_v101");
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  const seeds = [
+    {
+      id: "baker_seed_1",
+      name: "שף מיכאל אלבז",
+      email: "chef.elbaz@artisan.co.il",
+      phone: "054-9876543",
+      city: "רמת גן / תל אביב",
+      level: "שף אופה / קונדיטור מקצועי",
+      specialty: "מחמצות כפריות ושיפון",
+      dateJoined: "12/10/2026",
+      isPro: true,
+      role: "pro_baker"
+    },
+    {
+      id: "baker_seed_2",
+      name: "יונתן שגיא",
+      email: "yonatan.sagi@bakers.org",
+      phone: "052-7654321",
+      city: "ירושלים והסביבה",
+      level: "שף אופה / קונדיטור מקצועי",
+      specialty: "פסטה מדרה ווינואזרי",
+      dateJoined: "18/10/2026",
+      isPro: true,
+      role: "pro_baker"
+    },
+    {
+      id: "baker_seed_3",
+      name: "מאיה כהן",
+      email: "maya.breads@gmail.com",
+      phone: "050-1122334",
+      city: "חיפה והצפון",
+      level: "אופה מחמצות מתקדם",
+      specialty: "פיצה נפוליטנית ופוקאצ'ה",
+      dateJoined: "24/10/2026",
+      isPro: false,
+      role: "baker"
+    }
+  ];
+  localStorage.setItem("bakery_registered_bakers_v101", JSON.stringify(seeds));
+  return seeds;
+}
+
+function saveMasterRegisteredBakers(list) {
+  try {
+    localStorage.setItem("bakery_registered_bakers_v101", JSON.stringify(list));
+  } catch (e) {}
+}
+
+// Registration Handler with Full Field Validation & Terms Protection
+function handleBakerRegisterSubmit(event) {
+  event.preventDefault();
+  const name = (document.getElementById("regName")?.value || "").trim();
+  const phone = (document.getElementById("regPhone")?.value || "").trim();
+  const email = (document.getElementById("regEmail")?.value || "").trim();
+  const city = document.getElementById("regCity")?.value || "רמת גן / תל אביב והמרכז";
+  const level = document.getElementById("regLevel")?.value || "אופה מחמצות מתקדם";
+  const specialty = document.getElementById("regSpecialty")?.value || "מחמצות כפריות ושיפון";
+  const agree = document.getElementById("regTermsAgree")?.checked;
+
+  if (!name) {
+    showToast("נא להזין שם מלא או כינוי אופה", "error");
+    return;
+  }
+  if (!phone || phone.length < 9) {
+    showToast("נא להזין מספר טלפון נייד תקין", "error");
+    return;
+  }
+  if (!email || !email.includes("@")) {
+    showToast("נא להזין כתובת אימייל תקינה", "error");
+    return;
+  }
+  if (!agree) {
+    showToast("יש לאשר את תנאי השימוש ומדיניות הבטיחות להרשמה", "error");
+    return;
+  }
+
+  const bakers = getMasterRegisteredBakers();
+  const existing = bakers.find(b => b.email.toLowerCase() === email.toLowerCase() || b.phone === phone);
+  const bakerId = existing ? existing.id : ("baker_" + Date.now());
+
+  const newBakerRecord = {
+    id: bakerId,
+    name: name,
+    email: email,
+    phone: phone,
+    city: city,
+    level: level,
+    specialty: specialty,
+    dateJoined: existing ? existing.dateJoined : new Date().toLocaleDateString("he-IL"),
+    isPro: existing ? existing.isPro : false,
+    role: level.includes("שף") ? "pro_baker" : "baker",
+    avatarPhoto: pendingRegAvatarDataUri || (existing ? existing.avatarPhoto : "")
+  };
+
+  if (existing) {
+    const idx = bakers.findIndex(b => b.id === existing.id);
+    bakers[idx] = newBakerRecord;
+  } else {
+    bakers.unshift(newBakerRecord);
+  }
+  saveMasterRegisteredBakers(bakers);
+
+  // Update current user session
+  if (!state.user) initUser();
+  state.user.id = bakerId;
+  state.user.name = name;
+  state.user.phone = phone;
+  state.user.email = email;
+  state.user.city = city;
+  state.user.level = level;
+  state.user.specialty = specialty;
+  state.user.role = newBakerRecord.role;
+  state.user.isVerifiedChef = newBakerRecord.isPro || level.includes("שף");
+  if (pendingRegAvatarDataUri) {
+    state.user.avatarPhoto = pendingRegAvatarDataUri;
+    state.user.customAvatar = pendingRegAvatarDataUri;
+  }
+
+  saveUser();
+  closeModal("authModal");
+  updateUserProfileUI();
+  syncCommunityAuthGateUI();
+  playDreamyChime("harp");
+
+  showToast(`ברוך הבא לבית האפיות, ${name}! הפרופיל שלך הוקם ומאובטח בהצלחה ✨`);
+}
+
+// Login Handler supporting Phone OR Email OR Name
+submitBakerLogin = function() {
+  handleBakerLoginSubmit();
+};
+
+function handleBakerLoginSubmit(event) {
+  if (event) event.preventDefault();
+  const phone = (document.getElementById("loginPhone")?.value || "").trim();
+  const email = (document.getElementById("loginEmail")?.value || "").trim().toLowerCase();
+  const nameInput = (document.getElementById("loginName")?.value || "").trim();
+
+  if (!phone && !email && !nameInput) {
+    showToast("נא להזין מספר טלפון, אימייל או שם אופה", "error");
+    return;
+  }
+
+  const bakers = getMasterRegisteredBakers();
+  const found = bakers.find(b =>
+    (email && b.email.toLowerCase() === email) ||
+    (phone && b.phone.replace(/\D/g, "") === phone.replace(/\D/g, "")) ||
+    (nameInput && b.name.toLowerCase() === nameInput.toLowerCase())
+  );
+
+  if (!state.user) initUser();
+
+  if (found) {
+    state.user.id = found.id;
+    state.user.name = found.name;
+    state.user.email = found.email;
+    state.user.phone = found.phone;
+    state.user.city = found.city;
+    state.user.level = found.level;
+    state.user.specialty = found.specialty;
+    state.user.role = found.role;
+    state.user.isVerifiedChef = !!found.isPro;
+    if (found.avatarPhoto) state.user.avatarPhoto = found.avatarPhoto;
+  } else {
+    // New login creation with provided credentials
+    const isEmail = ident.includes("@");
+    state.user.name = nameInput || (isEmail ? ident.split("@")[0] : "אופה רשום");
+    if (isEmail) state.user.email = ident;
+    else state.user.phone = ident;
+    state.user.role = "baker";
+    state.user.city = (bioLabState && bioLabState.cityName) || "רמת גן / תל אביב";
+
+    const newRecord = {
+      id: "baker_" + Date.now(),
+      name: state.user.name,
+      email: state.user.email || "—",
+      phone: state.user.phone || "—",
+      city: state.user.city,
+      level: "אופה מחמצות מתקדם",
+      specialty: "מחמצות כפריות ושיפון",
+      dateJoined: new Date().toLocaleDateString("he-IL"),
+      isPro: false,
+      role: "baker"
+    };
+    bakers.unshift(newRecord);
+    saveMasterRegisteredBakers(bakers);
+  }
+
+  saveUser();
+  closeModal("authModal");
+  updateUserProfileUI();
+  syncCommunityAuthGateUI();
+  playDreamyChime("harp");
+  showToast(`התחברת בהצלחה! שלום, ${state.user.name} 🔑`);
+}
+
+// Keshet's Kennel Governance Registered Bakers Roster Controller
+function refreshGovBakersRoster() {
+  const bakers = getMasterRegisteredBakers();
+  const badge = document.getElementById("govBakersCountBadge");
+  const tbody = document.getElementById("govBakersTableBody");
+  if (badge) badge.textContent = bakers.length;
+  if (!tbody) return;
+
+  filterGovBakersTable();
+}
+
+function filterGovBakersTable() {
+  const bakers = getMasterRegisteredBakers();
+  const searchQ = (document.getElementById("govBakerSearchInput")?.value || "").trim().toLowerCase();
+  const cityFilter = document.getElementById("govBakerCityFilter")?.value || "all";
+  const tbody = document.getElementById("govBakersTableBody");
+  if (!tbody) return;
+
+  const filtered = bakers.filter(b => {
+    if (cityFilter !== "all" && !b.city.includes(cityFilter)) return false;
+    if (searchQ) {
+      const matchName = b.name.toLowerCase().includes(searchQ);
+      const matchEmail = (b.email || "").toLowerCase().includes(searchQ);
+      const matchPhone = (b.phone || "").includes(searchQ);
+      const matchCity = (b.city || "").toLowerCase().includes(searchQ);
+      if (!matchName && !matchEmail && !matchPhone && !matchCity) return false;
+    }
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 24px; color: var(--text-tertiary);">לא נמצאו אופים תואמים לחיפוש זה.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(b => {
+    const isPro = !!b.isPro;
+    const maskedPhone = b.phone || "—";
+    return `
+      <tr>
+        <td>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <div class="comm-avatar-circle" style="width: 28px; height: 28px; font-size: 11px;">
+              ${escapeHtml((b.name || "אפ").slice(0, 2))}
+            </div>
+            <strong>${escapeHtml(b.name)}</strong>
+          </div>
+        </td>
+        <td style="font-size: 0.78rem; direction: ltr; text-align: right;">${escapeHtml(b.email)}</td>
+        <td style="font-size: 0.78rem; direction: ltr; text-align: right;">${escapeHtml(maskedPhone)}</td>
+        <td style="font-size: 0.78rem;">${escapeHtml(b.city || "מרכז")}</td>
+        <td style="font-size: 0.76rem;">
+          <span class="badge" style="background: rgba(14, 116, 144, 0.1); color: #0E7490;">${escapeHtml(b.specialty || "מחמצות")}</span>
+        </td>
+        <td style="font-size: 0.75rem; color: var(--text-tertiary);">${escapeHtml(b.dateJoined || "2026")}</td>
+        <td>
+          <span class="badge ${isPro ? 'badge-pro' : 'badge-free'}" style="font-size: 0.7rem;">
+            ${isPro ? '👑 Master VIP' : '🌾 חבר רשום'}
+          </span>
+        </td>
+        <td>
+          <div style="display: flex; gap: 4px;">
+            <button type="button" class="btn btn-outline-gold btn-sm" style="padding: 2px 7px; font-size: 0.7rem;" onclick="toggleBakerVipStatus('${escapeHtml(b.id)}')">
+              ${isPro ? 'הסר VIP' : 'הענק VIP 👑'}
+            </button>
+            <button type="button" class="btn btn-ghost btn-sm" style="padding: 2px 7px; font-size: 0.7rem; color: var(--apple-red);" onclick="deleteBakerFromRoster('${escapeHtml(b.id)}')">
+              ✕
+            </button>
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join("");
+}
+
+function toggleBakerVipStatus(bakerId) {
+  const bakers = getMasterRegisteredBakers();
+  const b = bakers.find(x => x.id === bakerId);
+  if (!b) return;
+  b.isPro = !b.isPro;
+  b.role = b.isPro ? "pro_baker" : "baker";
+  saveMasterRegisteredBakers(bakers);
+  refreshGovBakersRoster();
+  showToast(`סטטוס המנוי של "${b.name}" עודכן ל-${b.isPro ? 'VIP 👑' : 'רגיל'}`);
+}
+
+function deleteBakerFromRoster(bakerId) {
+  let bakers = getMasterRegisteredBakers();
+  bakers = bakers.filter(x => x.id !== bakerId);
+  saveMasterRegisteredBakers(bakers);
+  refreshGovBakersRoster();
+  showToast("האופה הוסר ממאגר המערכת.");
+}
+
+function exportBakersRosterCsv() {
+  const bakers = getMasterRegisteredBakers();
+  let csv = "\uFEFFשם מלא,אימייל,מספר טלפון,אזור מגורים ומאפייה,רמת ניסיון,התמחות ראשית,תאריך הצטרפות,סטטוס מנוי\n";
+  bakers.forEach(b => {
+    csv += `"${b.name}","${b.email}","${b.phone}","${b.city}","${b.level}","${b.specialty}","${b.dateJoined}","${b.isPro ? 'VIP' : 'Regular'}"\n`;
+  });
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `בית_האפיות_מאגר_אופים_${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast("קובץ מאגר האופים (CSV) יוצא בהצלחה! 📥");
+}
+
+// 2. Real-Time PWA App Update Notification Banner Controller
+function checkAndNotifyAppUpdate() {
+  try {
+    const savedVer = localStorage.getItem("bakery_house_build_version");
+    if (!savedVer) {
+      localStorage.setItem("bakery_house_build_version", APP_CURRENT_VERSION);
+      return;
+    }
+    // If client version differs from current build
+    if (savedVer !== APP_CURRENT_VERSION) {
+      const banner = document.getElementById("appUpdateToastBanner");
+      const verText = document.getElementById("appNewVersionText");
+      if (verText) verText.textContent = `v${APP_CURRENT_VERSION}`;
+      if (banner) banner.classList.remove("d-none");
+    }
+  } catch (e) {}
+
+  // Also listen for Service Worker waiting update
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.getRegistration().then(reg => {
+      if (!reg) return;
+      reg.addEventListener("updatefound", () => {
+        const newWorker = reg.installing;
+        if (!newWorker) return;
+        newWorker.addEventListener("statechange", () => {
+          if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
+            const banner = document.getElementById("appUpdateToastBanner");
+            if (banner) banner.classList.remove("d-none");
+          }
+        });
+      });
+    }).catch(() => {});
+  }
+}
+
+function forceAppUpdateAndReload() {
+  localStorage.setItem("bakery_house_build_version", APP_CURRENT_VERSION);
+  if ("caches" in window) {
+    caches.keys().then(keys => {
+      keys.forEach(k => caches.delete(k));
+    }).catch(() => {});
+  }
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.getRegistrations().then(regs => {
+      regs.forEach(r => r.unregister());
+    }).catch(() => {});
+  }
+  showToast("מתקין את העדכון החדש (v10.1)... ✨");
+  setTimeout(() => {
+    window.location.reload(true);
+  }, 400);
+}
+
+function dismissAppUpdateBanner() {
+  const banner = document.getElementById("appUpdateToastBanner");
+  if (banner) banner.classList.add("d-none");
+}
+
+function simulateNewVersionRelease() {
+  const banner = document.getElementById("appUpdateToastBanner");
+  const verText = document.getElementById("appNewVersionText");
+  if (verText) verText.textContent = `v${APP_CURRENT_VERSION}`;
+  if (banner) banner.classList.remove("d-none");
+  showToast("הודעת עדכון גרסה הופעלה (תצוגה מקדימה למנהל קשת) 📢");
+}
+
+// Hook into initializers
+document.addEventListener("DOMContentLoaded", () => {
+  getMasterRegisteredBakers();
+  refreshGovBakersRoster();
+  checkAndNotifyAppUpdate();
+});
+
+setTimeout(() => {
+  refreshGovBakersRoster();
+  checkAndNotifyAppUpdate();
+}, 500);
 
   </script>
 </body>

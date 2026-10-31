@@ -1,11 +1,11 @@
-const CACHE_NAME = "bakery-house-v10.0";
+const CACHE_NAME = "bakery-house-v10.1";
 const ASSETS = [
   "/",
   "/index.html",
-  "/manifest.json?v=10.0",
-  "/icon-192.png?v=10.0",
-  "/icon-512.png?v=10.0",
-  "/apple-touch-icon.png?v=10.0"
+  "/manifest.json?v=10.1",
+  "/icon-192.png?v=10.1",
+  "/icon-512.png?v=10.1",
+  "/apple-touch-icon.png?v=10.1"
 ];
 
 self.addEventListener("install", (event) => {
