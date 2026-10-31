@@ -8775,7 +8775,7 @@ body.theme-dark .poke-test-stage {
 
 
   <!-- ================================================================== -->
-  <!-- GLOBAL FLOATING ACTIVE RECIPE & BACKGROUND TIMER BAR (v9.5)        -->
+  <!-- GLOBAL FLOATING ACTIVE RECIPE & BACKGROUND TIMER BAR (v10.1)        -->
   <!-- Visible when browsing other tabs while a recipe/timer is active    -->
   <!-- ================================================================== -->
   <div id="globalActiveRecipeFloatingBar" class="global-active-recipe-bar d-none">
@@ -17903,7 +17903,7 @@ setTimeout(() => {
 //     INLINE ACTIVE RECIPE STUDIO, LIVING NAV ICON & STRICT COMMUNITY AUTH
 // ==========================================================================
 
-const APP_BUILD_VERSION = "9.5";
+const APP_BUILD_VERSION = "10.1";
 
 // 1. Automatic App Logo & Cache-Busting Synchronization
 function ensureFreshAppLogoAndCache() {
@@ -17934,7 +17934,7 @@ function ensureFreshAppLogoAndCache() {
 
 function forceRefreshAppLogoAndPwa() {
   ensureFreshAppLogoAndCache();
-  showToast("הלוגו וגרסת האפליקציה (v9.5) רועננו בהצלחה! ✨");
+  showToast("הלוגו וגרסת האפליקציה (v10.1) רועננו בהצלחה! ✨");
 }
 
 // 2. Starter Lab Sub-Pane State Preservation & Contained Weather Sync
@@ -19855,34 +19855,36 @@ function exportBakersRosterCsv() {
   showToast("קובץ מאגר האופים (CSV) יוצא בהצלחה! 📥");
 }
 
-// 2. Real-Time PWA App Update Notification Banner Controller
+// 2. Real-Time PWA App Update Notification Banner Controller (Zero Loop)
 function checkAndNotifyAppUpdate() {
   try {
-    const savedVer = localStorage.getItem("bakery_house_build_version");
-    if (!savedVer) {
-      localStorage.setItem("bakery_house_build_version", APP_CURRENT_VERSION);
-      return;
-    }
-    // If client version differs from current build
-    if (savedVer !== APP_CURRENT_VERSION) {
-      const banner = document.getElementById("appUpdateToastBanner");
-      const verText = document.getElementById("appNewVersionText");
-      if (verText) verText.textContent = `v${APP_CURRENT_VERSION}`;
-      if (banner) banner.classList.remove("d-none");
-    }
+    localStorage.setItem("bakery_house_build_version", "10.1");
   } catch (e) {}
 
-  // Also listen for Service Worker waiting update
+  if (sessionStorage.getItem("update_banner_dismissed") === "true") {
+    return;
+  }
+
+  // Listen for real Service Worker update waiting
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.getRegistration().then(reg => {
       if (!reg) return;
+      function showBanner() {
+        if (sessionStorage.getItem("update_banner_dismissed") === "true") return;
+        const banner = document.getElementById("appUpdateToastBanner");
+        const verText = document.getElementById("appNewVersionText");
+        if (verText) verText.textContent = "v10.1";
+        if (banner) banner.classList.remove("d-none");
+      }
+      if (reg.waiting) {
+        showBanner();
+      }
       reg.addEventListener("updatefound", () => {
         const newWorker = reg.installing;
         if (!newWorker) return;
         newWorker.addEventListener("statechange", () => {
           if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
-            const banner = document.getElementById("appUpdateToastBanner");
-            if (banner) banner.classList.remove("d-none");
+            showBanner();
           }
         });
       });
@@ -19891,26 +19893,41 @@ function checkAndNotifyAppUpdate() {
 }
 
 function forceAppUpdateAndReload() {
-  localStorage.setItem("bakery_house_build_version", APP_CURRENT_VERSION);
+  const banner = document.getElementById("appUpdateToastBanner");
+  if (banner) banner.classList.add("d-none");
+  try {
+    localStorage.setItem("bakery_house_build_version", "10.1");
+    sessionStorage.setItem("update_banner_dismissed", "true");
+  } catch(e) {}
+
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.getRegistration().then(reg => {
+      if (reg && reg.waiting) {
+        reg.waiting.postMessage({ type: "SKIP_WAITING" });
+      }
+    }).catch(() => {});
+  }
+
   if ("caches" in window) {
     caches.keys().then(keys => {
-      keys.forEach(k => caches.delete(k));
+      keys.forEach(k => {
+        if (!k.includes("10.1")) caches.delete(k);
+      });
     }).catch(() => {});
   }
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.getRegistrations().then(regs => {
-      regs.forEach(r => r.unregister());
-    }).catch(() => {});
-  }
-  showToast("מתקין את העדכון החדש (v10.1)... ✨");
+
+  showToast("הגרסה המעודכנת הותקנה בהצלחה! מרענן... ✨");
   setTimeout(() => {
     window.location.reload(true);
-  }, 400);
+  }, 350);
 }
 
 function dismissAppUpdateBanner() {
   const banner = document.getElementById("appUpdateToastBanner");
   if (banner) banner.classList.add("d-none");
+  try {
+    sessionStorage.setItem("update_banner_dismissed", "true");
+  } catch (e) {}
 }
 
 function simulateNewVersionRelease() {
